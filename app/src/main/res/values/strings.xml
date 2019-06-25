@@ -1,6 +1,11 @@
 <resources>
   <string name="app_name">ThatCatApp</string>
-  <string name="title_home">Home</string>
-  <string name="title_dashboard">Dashboard</string>
-  <string name="title_notifications">Notifications</string>
+  <string name="title_home">Vote</string>
+  <string name="title_browse">Browse</string>
+  <string name="title_favorite">Favorite</string>
+  <string name="title_breeds">Breeds</string>
+  <string name="love_cat_btn">Love Cat</string>
+  <string name="dislike_cat_btn">Dislike Cat</string>
+  <string name="cat_text">Cat</string>
+
 </resources>
