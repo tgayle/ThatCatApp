@@ -1,4 +1,4 @@
-package app.endershrooms.thatcatapp;
+package app.endershrooms.thatcatapp.screens;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+import app.endershrooms.thatcatapp.R;
 import app.endershrooms.thatcatapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
