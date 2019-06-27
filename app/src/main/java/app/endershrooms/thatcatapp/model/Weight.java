@@ -39,5 +39,4 @@ public class Weight {
   public void setMetric(String metric) {
     this.metric = metric;
   }
-
 }

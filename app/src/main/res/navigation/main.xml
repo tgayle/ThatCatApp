@@ -6,7 +6,7 @@
   app:startDestination="@id/catVote">
   <fragment
     android:id="@+id/catVote"
-    android:name="app.endershrooms.thatcatapp.screens.fragment.CatVote"
+    android:name="app.endershrooms.thatcatapp.screens.fragment.vote.CatVoteFragment"
     android:label="fragment_cat_vote"
     tools:layout="@layout/fragment_cat_vote">
     <action
@@ -15,17 +15,17 @@
   </fragment>
   <fragment
     android:id="@+id/catSearch"
-    android:name="app.endershrooms.thatcatapp.screens.fragment.CatSearch"
+    android:name="app.endershrooms.thatcatapp.screens.fragment.search.CatSearchFragment"
     android:label="fragment_cat_search"
     tools:layout="@layout/fragment_cat_search"/>
   <fragment
     android:id="@+id/catFavorites"
-    android:name="app.endershrooms.thatcatapp.screens.fragment.CatFavorites"
+    android:name="app.endershrooms.thatcatapp.screens.fragment.favorites.CatFavoritesFragment"
     android:label="fragment_cat_favorites"
     tools:layout="@layout/fragment_cat_favorites"/>
   <fragment
     android:id="@+id/catBreeds"
-    android:name="app.endershrooms.thatcatapp.screens.fragment.CatBreeds"
+    android:name="app.endershrooms.thatcatapp.screens.fragment.breeds.CatBreedsFragment"
     android:label="fragment_cat_breeds"
     tools:layout="@layout/fragment_cat_breeds">
     <action

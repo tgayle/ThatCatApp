@@ -1,13 +1,22 @@
 package app.endershrooms.thatcatapp.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 import com.squareup.moshi.Json;
 
+@Entity
 public class Breed {
 
   @Json(name = "weight")
   private Weight weight;
+
   @Json(name = "id")
+  @PrimaryKey
+  @NonNull
   private String id;
+
   @Json(name = "name")
   private String name;
   @Json(name = "cfa_url")
@@ -83,6 +92,7 @@ public class Breed {
   public Breed() {
   }
 
+  @Ignore
   public Breed(Weight weight, String id, String name, String cfaUrl, String vetstreetUrl,
       String vcahospitalsUrl, String temperament, String origin, String countryCodes,
       String countryCode, String description, String lifeSpan, Integer indoor, Integer lap,

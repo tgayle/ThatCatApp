@@ -18,7 +18,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
-public interface CatInterface {
+public interface CatService {
 
   @GET("/breeds")
   Single<Breed[]> getBreeds();

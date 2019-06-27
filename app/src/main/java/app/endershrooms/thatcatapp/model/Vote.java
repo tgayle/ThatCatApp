@@ -1,15 +1,20 @@
 package app.endershrooms.thatcatapp.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import com.squareup.moshi.Json;
 
+@Entity
 public class Vote {
 
   @Json(name = "id")
+  @PrimaryKey
   private Integer id;
+
   @Json(name = "image_id")
   private String imageId;
   @Json(name = "sub_id")
-  private Object subId;
+  private String subId;
   @Json(name = "created_at")
   private String createdAt;
   @Json(name = "value")
@@ -33,11 +38,11 @@ public class Vote {
     this.imageId = imageId;
   }
 
-  public Object getSubId() {
+  public String getSubId() {
     return subId;
   }
 
-  public void setSubId(Object subId) {
+  public void setSubId(String subId) {
     this.subId = subId;
   }
 

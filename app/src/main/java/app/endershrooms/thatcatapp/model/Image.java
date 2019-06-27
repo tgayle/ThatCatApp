@@ -1,10 +1,12 @@
 package app.endershrooms.thatcatapp.model;
 
+import androidx.room.ColumnInfo;
 import com.squareup.moshi.Json;
 
 public class Image {
 
   @Json(name = "id")
+  @ColumnInfo(name = "img_id")
   private String id;
   @Json(name = "url")
   private String url;

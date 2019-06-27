@@ -8,7 +8,7 @@
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.fragment.CatBreeds">
+    tools:context=".screens.fragment.breeds.CatBreedsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
       android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package app.endershrooms.thatcatapp.screens.fragment;
+package app.endershrooms.thatcatapp.screens.fragment.favorites;
 
 
 import android.os.Bundle;
@@ -7,15 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import app.endershrooms.thatcatapp.R;
+import app.endershrooms.thatcatapp.screens.fragment.BaseFragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CatFavorites extends Fragment {
+public class CatFavoritesFragment extends BaseFragment {
 
 
-  public CatFavorites() {
+  public CatFavoritesFragment() {
     // Required empty public constructor
   }
 

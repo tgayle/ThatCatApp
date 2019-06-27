@@ -8,7 +8,7 @@
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.fragment.CatSearch">
+    tools:context=".screens.fragment.search.CatSearchFragment">
 
     <androidx.recyclerview.widget.RecyclerView
       android:layout_width="match_parent"
