@@ -10,12 +10,12 @@ import javax.inject.Inject;
 public abstract class BaseFragment extends Fragment {
 
   @Inject
-  protected
-  CatViewModelFactory vmFactory;
+  protected CatViewModelFactory vmFactory;
 
   @Override
   public void onAttach(@NonNull Context context) {
     AndroidSupportInjection.inject(this);
     super.onAttach(context);
   }
+
 }

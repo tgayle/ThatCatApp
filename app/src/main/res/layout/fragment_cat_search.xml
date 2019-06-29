@@ -10,13 +10,6 @@
     android:layout_height="match_parent"
     tools:context=".screens.fragment.search.CatSearchFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/searchRv">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
     <com.google.android.material.appbar.AppBarLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -28,7 +21,7 @@
         app:title="@string/title_browse"
         app:contentScrim="?attr/colorPrimary"
         app:expandedTitleGravity="top"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+        app:layout_scrollFlags="scroll|enterAlways|snap">
 
         <androidx.appcompat.widget.Toolbar
           android:layout_width="match_parent"
@@ -37,6 +30,23 @@
           app:layout_collapseMode="pin"/>
       </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:id="@+id/searchRv">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/searchFab"
+      style="@style/Widget.MaterialComponents.FloatingActionButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|right"
+      android:layout_margin="16dp"
+      app:srcCompat="@drawable/ic_plus_24"/>
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

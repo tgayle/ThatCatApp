@@ -3,12 +3,13 @@ package app.endershrooms.thatcatapp.net;
 import app.endershrooms.thatcatapp.model.Breed;
 import app.endershrooms.thatcatapp.model.Category;
 import app.endershrooms.thatcatapp.model.Favorite;
-import app.endershrooms.thatcatapp.model.Image;
+import app.endershrooms.thatcatapp.model.ImageResponse;
 import app.endershrooms.thatcatapp.model.RequestResult;
 import app.endershrooms.thatcatapp.model.Vote;
 import app.endershrooms.thatcatapp.model.builders.FavoriteRequest;
 import app.endershrooms.thatcatapp.model.builders.VoteRequest;
 import io.reactivex.Single;
+import java.util.List;
 import java.util.Map;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -20,46 +21,46 @@ import retrofit2.http.QueryMap;
 
 public interface CatService {
 
-  @GET("/breeds")
-  Single<Breed[]> getBreeds();
+  @GET("breeds")
+  Single<List<Breed>> getBreeds();
 
-  @GET("/breeds")
-  Single<Breed[]> searchBreeds(@Query("q") String query);
+  @GET("breeds")
+  Single<List<Breed>> searchBreeds(@Query("q") String query);
 
-  @GET("/categories")
-  Single<Category[]> getCategories();
+  @GET("categories")
+  Single<List<Category>> getCategories();
 
-  @GET("/votes")
+  @GET("votes")
   Single<Vote> getVote(@Query("vote_id") String id);
 
-  @GET("/votes")
-  Single<Vote[]> getVotes();
+  @GET("votes")
+  Single<List<Vote>> getVotes();
 
-  @POST("/votes")
+  @POST("votes")
   Single<RequestResult> createVote(@Body VoteRequest vote);
 
-  @DELETE("/votes")
+  @DELETE("votes")
   Single<RequestResult> deleteVote(@Query("vote_id") String id);
 
-  @GET("/favourites")
-  Single<Favorite[]> getFavorites(@Query("sub_id") String id,
+  @GET("favourites")
+  Single<List<Favorite>> getFavorites(@Query("sub_id") String id,
       @Query("limit") int limit,
       @Query("page") int page);
 
-  @GET("/favourites/{favourite_id}")
+  @GET("favourites/{favourite_id}")
   Single<Favorite> getFavorite(@Query("sub_id") String id,
       @Path("favourite_id") String favoriteId);
 
-  @DELETE("/favourites/{favourite_id}")
+  @DELETE("favourites/{favourite_id}")
   Single<RequestResult> deleteFavorite(@Query("sub_id") String id,
       @Path("favourite_id") String favoriteId);
 
-  @POST("/favourites")
+  @POST("favourites")
   Single<RequestResult> createFavorite(@Body FavoriteRequest favorite);
 
-  @GET("/images/search")
-  Single<Image[]> getImages(@QueryMap Map<String, String> queries);
+  @GET("images/search")
+  Single<List<ImageResponse>> getImages(@QueryMap Map<String, String> queries);
 
-  @GET("/images/{image_id}")
+  @GET("images/{image_id}")
   Single<RequestResult> getImage(@Path("image_id") String id);
 }

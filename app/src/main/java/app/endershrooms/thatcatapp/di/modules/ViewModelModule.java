@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import app.endershrooms.thatcatapp.db.dao.BreedDao;
 import app.endershrooms.thatcatapp.di.ViewModelKey;
+import app.endershrooms.thatcatapp.net.CatService;
 import app.endershrooms.thatcatapp.screens.CatViewModelFactory;
 import app.endershrooms.thatcatapp.screens.fragment.breeds.CatBreedViewModel;
 import app.endershrooms.thatcatapp.screens.fragment.favorites.CatFavoritesViewModel;
@@ -36,8 +37,8 @@ public class ViewModelModule {
   @Provides
   @IntoMap
   @ViewModelKey(CatSearchViewModel.class)
-  ViewModel bindCatSearchViewModel() {
-    return new CatSearchViewModel();
+  ViewModel bindCatSearchViewModel(CatService catService) {
+    return new CatSearchViewModel(catService);
   }
 
   @Provides

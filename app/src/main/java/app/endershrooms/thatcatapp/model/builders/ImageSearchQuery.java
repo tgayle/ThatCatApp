@@ -1,16 +1,17 @@
 package app.endershrooms.thatcatapp.model.builders;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ImageSearchQuery {
 
-  private ImageSize size;
-  private Order order;
+  private ImageSize size = ImageSize.MED;
+  private Order order = Order.ASC;
   private int limit;
   private int page;
-  private List<Integer> categoryIds;
-  private String breedId;
+  private List<Integer> categoryIds = new ArrayList<>();
+  private String breedId = "";
 
   public ImageSearchQuery() {
   }
@@ -90,19 +91,6 @@ public class ImageSearchQuery {
 
   public void setBreedId(String breedId) {
     this.breedId = breedId;
-  }
-}
-
-enum ImageSize {
-  FULL("full"),
-  MED("med"),
-  SMALL("small"),
-  THUMBNAIL("thumb");
-
-  public final String size;
-
-  ImageSize(String size) {
-    this.size = size;
   }
 }
 

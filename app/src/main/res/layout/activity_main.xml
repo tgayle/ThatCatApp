@@ -5,34 +5,33 @@
   <data>
 
   </data>
-  <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/container"
+  <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.MainActivity">
+    android:fitsSystemWindows="true">
 
-    <fragment
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:id="@+id/container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:id="@+id/navHostFragment"
-      android:name="androidx.navigation.fragment.NavHostFragment"
-      app:navGraph="@navigation/main"
-      app:defaultNavHost="true"/>
+      android:layout_above="@id/nav_view"
+      tools:context=".screens.MainActivity">
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/searchFab"
-      style="@style/Widget.MaterialComponents.FloatingActionButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom|right"
-      android:layout_margin="16dp"
-      app:srcCompat="@drawable/ic_plus_24"/>
+      <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_dodgeInsetEdges="bottom"
+        android:id="@+id/navHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/main"
+        app:defaultNavHost="true"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/nav_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="0dp"
       android:layout_marginEnd="0dp"
       app:layout_insetEdge="bottom"
@@ -42,6 +41,5 @@
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:menu="@menu/bottom_nav_menu"/>
-
-  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+  </RelativeLayout>
 </layout>
