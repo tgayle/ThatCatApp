@@ -2,56 +2,41 @@ package app.endershrooms.thatcatapp.di.modules;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import app.endershrooms.thatcatapp.db.dao.BreedDao;
 import app.endershrooms.thatcatapp.di.ViewModelKey;
-import app.endershrooms.thatcatapp.net.CatService;
 import app.endershrooms.thatcatapp.screens.CatViewModelFactory;
 import app.endershrooms.thatcatapp.screens.fragment.breeds.CatBreedViewModel;
 import app.endershrooms.thatcatapp.screens.fragment.favorites.CatFavoritesViewModel;
 import app.endershrooms.thatcatapp.screens.fragment.search.CatSearchViewModel;
 import app.endershrooms.thatcatapp.screens.fragment.vote.CatVoteViewModel;
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import dagger.multibindings.IntoMap;
-import java.util.Map;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 
 @Module
-public class ViewModelModule {
+public abstract class ViewModelModule {
 
-  @Provides
+  @Binds
   @IntoMap
   @ViewModelKey(CatBreedViewModel.class)
-  ViewModel provideCatBreedViewModel(BreedDao breedDao) {
-    return new CatBreedViewModel(breedDao);
-  }
+  abstract ViewModel bindCatBreedViewModel(CatBreedViewModel breedVm);
 
-  @Provides
+  @Binds
   @IntoMap
   @ViewModelKey(CatFavoritesViewModel.class)
-  ViewModel provideCatFavoritesViewModel() {
-    return new CatFavoritesViewModel();
-  }
+  abstract ViewModel bindCatFavoritesViewModel(CatFavoritesViewModel favVm);
 
-  @Provides
+  @Binds
   @IntoMap
   @ViewModelKey(CatSearchViewModel.class)
-  ViewModel bindCatSearchViewModel(CatService catService) {
-    return new CatSearchViewModel(catService);
-  }
+  abstract ViewModel bindCatSearchViewModel(CatSearchViewModel searchViewModel);
 
-  @Provides
+  @Binds
   @IntoMap
   @ViewModelKey(CatVoteViewModel.class)
-  ViewModel bindCatVoteViewModel() {
-    return new CatVoteViewModel();
-  }
+  abstract ViewModel bindCatVoteViewModel(CatVoteViewModel voteViewModel);
 
-  @Provides
+  @Binds
   @Singleton
-  ViewModelProvider.Factory bindViewModelFactory(
-      Map<Class<? extends ViewModel>, Provider<ViewModel>> providerMap) {
-    return new CatViewModelFactory(providerMap);
-  }
+  abstract ViewModelProvider.Factory bindViewModelFactory(CatViewModelFactory factory);
 }

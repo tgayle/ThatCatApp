@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:gravity="center"
+      android:textAllCaps="true"
+      android:text="@string/title_filters"
+      android:textStyle="bold"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="8dp">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/radio_order"
+        android:id="@+id/searchBottomSheetOrderHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+      <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/searchBottomSheetSortGroup"
+        app:layout_constraintTop_toBottomOf="@id/searchBottomSheetOrderHeader">
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/radio_ascending"
+          android:id="@+id/radio_asc"/>
+
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/radio_descending"
+          android:id="@+id/radio_desc"/>
+
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/radio_random"
+          android:id="@+id/radio_random"/>
+      </RadioGroup>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_input_limit"/>
+      <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:id="@+id/searchBottomSheetLimitInput"/>
+    </LinearLayout>
+  </LinearLayout>
+</layout>

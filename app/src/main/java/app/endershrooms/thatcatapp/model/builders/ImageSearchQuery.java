@@ -7,7 +7,7 @@ import java.util.List;
 public class ImageSearchQuery {
 
   private ImageSize size = ImageSize.MED;
-  private Order order = Order.ASC;
+  private SearchQueryOrder order = SearchQueryOrder.ASC;
   private int limit;
   private int page;
   private List<Integer> categoryIds = new ArrayList<>();
@@ -16,7 +16,7 @@ public class ImageSearchQuery {
   public ImageSearchQuery() {
   }
 
-  public ImageSearchQuery(ImageSize size, Order order, int limit, int page,
+  public ImageSearchQuery(ImageSize size, SearchQueryOrder order, int limit, int page,
       List<Integer> categoryIds, String breedId) {
     this.size = size;
     this.order = order;
@@ -53,11 +53,11 @@ public class ImageSearchQuery {
     this.size = size;
   }
 
-  public Order getOrder() {
+  public SearchQueryOrder getOrder() {
     return order;
   }
 
-  public void setOrder(Order order) {
+  public void setOrder(SearchQueryOrder order) {
     this.order = order;
   }
 
@@ -94,8 +94,3 @@ public class ImageSearchQuery {
   }
 }
 
-enum Order {
-  RANDOM,
-  ASC,
-  DESC
-}

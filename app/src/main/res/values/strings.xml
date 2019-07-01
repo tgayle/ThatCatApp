@@ -7,5 +7,11 @@
   <string name="love_cat_btn">Love Cat</string>
   <string name="dislike_cat_btn">Dislike Cat</string>
   <string name="cat_text">Cat</string>
+  <string name="title_filters">Filters</string>
+  <string name="radio_order">Order</string>
+  <string name="radio_ascending">Ascending</string>
+  <string name="radio_descending">Descending</string>
+  <string name="radio_random">Random</string>
+  <string name="search_input_limit">Limit</string>
 
 </resources>
