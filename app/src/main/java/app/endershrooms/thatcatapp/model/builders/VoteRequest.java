@@ -4,6 +4,9 @@ import com.squareup.moshi.Json;
 
 public class VoteRequest extends BaseNewRequest {
 
+  public static final int VOTE_DISLIKE = 0;
+  public static final int VOTE_LIKE = 1;
+
   @Json(name = "value")
   private int value;
 

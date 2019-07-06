@@ -62,6 +62,12 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:id="@+id/searchBottomSheetLimitInput"/>
+
+      <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchBottomSheetCategorySpinner">
+      </Spinner>
     </LinearLayout>
   </LinearLayout>
 </layout>

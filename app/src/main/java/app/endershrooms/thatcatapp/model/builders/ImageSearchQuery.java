@@ -49,48 +49,59 @@ public class ImageSearchQuery {
     return size;
   }
 
-  public void setSize(ImageSize size) {
-    this.size = size;
-  }
-
   public SearchQueryOrder getOrder() {
     return order;
   }
 
-  public void setOrder(SearchQueryOrder order) {
-    this.order = order;
-  }
 
   public int getLimit() {
     return limit;
   }
 
-  public void setLimit(int limit) {
-    this.limit = limit;
-  }
 
   public int getPage() {
     return page;
   }
 
-  public void setPage(int page) {
-    this.page = page;
-  }
 
   public List<Integer> getCategoryIds() {
     return categoryIds;
   }
 
-  public void setCategoryIds(List<Integer> categoryIds) {
-    this.categoryIds = categoryIds;
-  }
 
   public String getBreedId() {
     return breedId;
   }
 
-  public void setBreedId(String breedId) {
+  public ImageSearchQuery setSize(ImageSize size) {
+    this.size = size;
+    return this;
+  }
+
+  public ImageSearchQuery setOrder(
+      SearchQueryOrder order) {
+    this.order = order;
+    return this;
+  }
+
+  public ImageSearchQuery setLimit(int limit) {
+    this.limit = limit;
+    return this;
+  }
+
+  public ImageSearchQuery setPage(int page) {
+    this.page = page;
+    return this;
+  }
+
+  public ImageSearchQuery setCategoryIds(List<Integer> categoryIds) {
+    this.categoryIds = categoryIds;
+    return this;
+  }
+
+  public ImageSearchQuery setBreedId(String breedId) {
     this.breedId = breedId;
+    return this;
   }
 }
 

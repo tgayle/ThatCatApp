@@ -1,6 +1,11 @@
 package app.endershrooms.thatcatapp.di.modules;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import app.endershrooms.thatcatapp.net.CatService;
+import app.endershrooms.thatcatapp.util.Constants;
+import app.endershrooms.thatcatapp.util.UserInfo;
 import com.squareup.moshi.Moshi;
 import dagger.Module;
 import dagger.Provides;
@@ -40,5 +45,17 @@ public class AppModule {
     return new OkHttpClient.Builder()
         .addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BASIC))
         .build();
+  }
+
+  @Singleton
+  @Provides
+  UserInfo provideUserInfo(SharedPreferences sharedPrefs) {
+    return new UserInfo(sharedPrefs);
+  }
+
+  @Singleton
+  @Provides
+  SharedPreferences provideSharedPreferences(Application application) {
+    return application.getSharedPreferences(Constants.SHARED_PREFS, Context.MODE_PRIVATE);
   }
 }

@@ -13,5 +13,6 @@
   <string name="radio_descending">Descending</string>
   <string name="radio_random">Random</string>
   <string name="search_input_limit">Limit</string>
+  <string name="cat_vote_next">Next Cat</string>
 
 </resources>

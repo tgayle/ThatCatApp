@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import app.endershrooms.thatcatapp.db.dao.CategoryDao;
+import app.endershrooms.thatcatapp.model.Category;
 import app.endershrooms.thatcatapp.model.ImageResponse;
 import app.endershrooms.thatcatapp.model.builders.ImageSearchQuery;
 import app.endershrooms.thatcatapp.model.builders.SearchQueryOrder;
@@ -15,17 +17,22 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class CatSearchViewModel extends ViewModel {
+  private static final int MAX_IMAGE_LIMIT = 100;
 
-  private MutableLiveData<List<ImageResponse>> searchResults = new LiveDataWithInitial<>(
-      new ArrayList<>());
   private CatService catService;
+  private CategoryDao categoryDao;
+
+  private MutableLiveData<List<ImageResponse>> searchResults = new LiveDataWithInitial<>(new ArrayList<>());
   private MutableLiveData<Boolean> loading = new LiveDataWithInitial<>(false);
-  private MutableLiveData<ImageSearchQuery> searchQuery = new LiveDataWithInitial<>(
-      new ImageSearchQuery());
+  private MutableLiveData<ImageSearchQuery> searchQuery = new LiveDataWithInitial<>(new ImageSearchQuery());
+  private LiveData<List<Category>> imageCategories;
 
   @Inject
-  public CatSearchViewModel(CatService catService) {
+  public CatSearchViewModel(CatService catService, CategoryDao categoryDao) {
     this.catService = catService;
+    this.categoryDao = categoryDao;
+
+    imageCategories = categoryDao.getCategories();
   }
 
   void fragmentReady() {
@@ -67,8 +74,14 @@ public class CatSearchViewModel extends ViewModel {
 
   public void limitTextChanged(String newLimitString) {
     ImageSearchQuery initialQuery = searchQuery.getValue();
+    int newLimit;
 
-    int newLimit = newLimitString.isEmpty() ? 0 : Integer.parseInt(newLimitString);
+    try {
+      newLimit = newLimitString.isEmpty() ? 0 : Integer.parseInt(newLimitString);
+      newLimit = Math.min(newLimit, MAX_IMAGE_LIMIT);
+    } catch (ArithmeticException e) {
+      newLimit = initialQuery.getLimit();
+    }
 
     if (initialQuery.getLimit() == newLimit) {
       return;

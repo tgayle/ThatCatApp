@@ -12,7 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import app.endershrooms.thatcatapp.R;
 import app.endershrooms.thatcatapp.databinding.FragmentCatVoteBinding;
+import app.endershrooms.thatcatapp.model.ImageResponse;
 import app.endershrooms.thatcatapp.screens.fragment.BaseFragment;
+import app.endershrooms.thatcatapp.util.Result.Type;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.android.material.snackbar.Snackbar;
 
 
 /**
@@ -37,12 +44,41 @@ public class CatVoteFragment extends BaseFragment {
         container,
         false);
 
+    voteVm = ViewModelProviders.of(this, vmFactory).get(CatVoteViewModel.class);
+    voteVm.fragmentReady();
     return binding.getRoot();
   }
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    voteVm = ViewModelProviders.of(this, vmFactory).get(CatVoteViewModel.class);
-    voteVm.fragmentReady();
+    binding.voteLikeCatBtn.setOnClickListener(v -> voteVm.voteOnCat(true));
+    binding.voteDislikeCatBtn.setOnClickListener(v -> voteVm.voteOnCat(false));
+    binding.voteNextCatBtn.setOnClickListener(v -> voteVm.requestNewCat());
+
+    voteVm.getButtonsEnabled().observe(getViewLifecycleOwner(), enabled -> {
+      binding.voteLikeCatBtn.setEnabled(enabled);
+      binding.voteNextCatBtn.setEnabled(enabled);
+      binding.voteDislikeCatBtn.setEnabled(enabled);
+    });
+
+    voteVm.getSnackbarMessage().observe(getViewLifecycleOwner(), msgEvent -> {
+      String msg = msgEvent.getContentIfNotHandled();
+
+      if (msg != null) {
+        Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show();
+      }
+    });
+
+    voteVm.getCurrentCat().observe(getViewLifecycleOwner(), catResult -> {
+      if (catResult.getType() == Type.FAILURE || catResult.getResult() == null) return;
+
+      ImageResponse catInfo = catResult.getResult();
+
+      Glide.with(this)
+          .load(catInfo.getUrl())
+          .transform(new CenterCrop(), new RoundedCorners(15))
+          .transition(DrawableTransitionOptions.withCrossFade())
+          .into(binding.voteCatImg);
+    });
   }
 }
