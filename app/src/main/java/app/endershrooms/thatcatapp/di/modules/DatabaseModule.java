@@ -23,25 +23,21 @@ public class DatabaseModule {
         .build();
   }
 
-  @Singleton
   @Provides
   BreedDao provideBreedDao(CatDatabase db) {
     return db.breedDao();
   }
 
-  @Singleton
   @Provides
   VoteDao provideVoteDao(CatDatabase db) {
     return db.voteDao();
   }
 
-  @Singleton
   @Provides
   CategoryDao provideCategoryDao(CatDatabase db) {
     return db.categoryDao();
   }
 
-  @Singleton
   @Provides
   FavoriteDao provideFavoriteDao(CatDatabase db) {
     return db.favoriteDao();
