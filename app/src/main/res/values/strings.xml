@@ -14,5 +14,6 @@
   <string name="radio_random">Random</string>
   <string name="search_input_limit">Limit</string>
   <string name="cat_vote_next">Next Cat</string>
+  <string name="favorite_cat">Favorite Cat</string>
 
 </resources>

@@ -12,6 +12,7 @@ import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
@@ -43,6 +44,13 @@ public class AppModule {
   @Provides
   OkHttpClient provideOkHttpClient() {
     return new OkHttpClient.Builder()
+        .addInterceptor(chain -> {
+          Request request = chain.request();
+          request = request.newBuilder()
+              .addHeader("x-api-key", Constants.API_KEY)
+              .build();
+          return chain.proceed(request);
+        })
         .addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BASIC))
         .build();
   }

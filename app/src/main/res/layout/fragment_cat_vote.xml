@@ -28,35 +28,56 @@
         tools:src="@tools:sample/avatars"
         android:id="@+id/voteCatImg"/>
 
-      <com.google.android.material.button.MaterialButton
+      <ImageButton
         android:id="@+id/voteLikeCatBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/votingGuideline"
-        android:text="@string/love_cat_btn"
-        app:layout_constraintEnd_toStartOf="@id/voteDislikeCatBtn"
+        android:backgroundTint="#000000ff"
+        android:contentDescription="@string/love_cat_btn"
+        android:src="@drawable/checkmark"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@id/voteFavoriteCatBtn"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/votingGuideline"/>
 
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/voteDislikeCatBtn"
+      <ImageButton
+        android:id="@+id/voteFavoriteCatBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dislike_cat_btn"
+        android:backgroundTint="#000000ff"
+        android:contentDescription="@string/favorite_cat"
+        android:src="@drawable/empty_favorite"
+        android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@id/voteLikeCatBtn"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/voteDislikeCatBtn"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@id/voteLikeCatBtn"/>
 
-      <com.google.android.material.button.MaterialButton
+      <ImageButton
+        android:id="@+id/voteDislikeCatBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cat_vote_next"
+        android:backgroundTint="#000000ff"
+        android:contentDescription="@string/dislike_cat_btn"
+        android:src="@drawable/close"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/voteLikeCatBtn"
+        app:layout_constraintEnd_toStartOf="@id/voteNextCatBtn"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/voteFavoriteCatBtn"/>
+
+      <ImageButton
         android:id="@+id/voteNextCatBtn"
-        app:layout_constraintStart_toStartOf="@id/voteLikeCatBtn"
-        app:layout_constraintTop_toBottomOf="@id/voteLikeCatBtn"
-        app:layout_constraintEnd_toEndOf="@id/voteDislikeCatBtn"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#000000ff"
+        android:contentDescription="@string/cat_vote_next"
+        android:src="@drawable/arrow_forward"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/voteDislikeCatBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/voteDislikeCatBtn"/>
 
       <androidx.constraintlayout.widget.Guideline
         android:id="@+id/votingGuideline"

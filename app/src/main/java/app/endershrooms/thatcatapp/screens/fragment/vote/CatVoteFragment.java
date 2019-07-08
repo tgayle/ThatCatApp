@@ -51,14 +51,16 @@ public class CatVoteFragment extends BaseFragment {
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    binding.voteLikeCatBtn.setOnClickListener(v -> voteVm.voteOnCat(true));
-    binding.voteDislikeCatBtn.setOnClickListener(v -> voteVm.voteOnCat(false));
-    binding.voteNextCatBtn.setOnClickListener(v -> voteVm.requestNewCat());
+    binding.voteLikeCatBtn.setOnClickListener(v -> voteVm.catVoteClicked(true));
+    binding.voteDislikeCatBtn.setOnClickListener(v -> voteVm.catVoteClicked(false));
+    binding.voteNextCatBtn.setOnClickListener(v -> voteVm.nextCatClicked());
+    binding.voteFavoriteCatBtn.setOnClickListener(v -> voteVm.catFavoriteClicked());
 
     voteVm.getButtonsEnabled().observe(getViewLifecycleOwner(), enabled -> {
       binding.voteLikeCatBtn.setEnabled(enabled);
       binding.voteNextCatBtn.setEnabled(enabled);
       binding.voteDislikeCatBtn.setEnabled(enabled);
+      binding.voteFavoriteCatBtn.setEnabled(enabled);
     });
 
     voteVm.getSnackbarMessage().observe(getViewLifecycleOwner(), msgEvent -> {
@@ -70,7 +72,11 @@ public class CatVoteFragment extends BaseFragment {
     });
 
     voteVm.getCurrentCat().observe(getViewLifecycleOwner(), catResult -> {
-      if (catResult.getType() == Type.FAILURE || catResult.getResult() == null) return;
+      if (catResult.getResult() == null) return;
+      if (catResult.getType() == Type.FAILURE) {
+        Snackbar.make(getView(), catResult.getError(), Snackbar.LENGTH_SHORT).show();
+        return;
+      }
 
       ImageResponse catInfo = catResult.getResult();
 

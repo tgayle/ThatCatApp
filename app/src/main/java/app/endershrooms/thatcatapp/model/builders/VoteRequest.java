@@ -43,4 +43,8 @@ public class VoteRequest extends BaseNewRequest {
   public void setValue(int value) {
     this.value = value;
   }
+
+  public static int fromBoolean(boolean liked) {
+    return liked ? VOTE_LIKE : VOTE_DISLIKE;
+  }
 }

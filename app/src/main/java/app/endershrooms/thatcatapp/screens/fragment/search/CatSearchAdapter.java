@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import app.endershrooms.thatcatapp.databinding.CatItemBinding;
 import app.endershrooms.thatcatapp.model.ImageResponse;
 import app.endershrooms.thatcatapp.screens.fragment.search.CatSearchAdapter.SearchViewHolder;
+import app.endershrooms.thatcatapp.view.OnCatClickedListener;
 import com.bumptech.glide.Glide;
 
 public class CatSearchAdapter extends ListAdapter<ImageResponse, SearchViewHolder> {
+  private OnCatClickedListener<ImageResponse> onCatClickedListener;
 
   public CatSearchAdapter() {
     super(IMAGE_DIFF_UTIL);
@@ -23,7 +25,7 @@ public class CatSearchAdapter extends ListAdapter<ImageResponse, SearchViewHolde
   public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     CatItemBinding binding = CatItemBinding
         .inflate(LayoutInflater.from(parent.getContext()), parent, false);
-    return new SearchViewHolder(binding);
+    return new SearchViewHolder(binding, onCatClickedListener);
   }
 
   @Override
@@ -31,13 +33,19 @@ public class CatSearchAdapter extends ListAdapter<ImageResponse, SearchViewHolde
     holder.bind(getItem(position));
   }
 
+  public void setOnCatClickedListener(OnCatClickedListener<ImageResponse> onCatClickedListener) {
+    this.onCatClickedListener = onCatClickedListener;
+  }
+
   class SearchViewHolder extends ViewHolder {
 
     private final CatItemBinding binding;
+    private OnCatClickedListener<ImageResponse> listener;
 
-    SearchViewHolder(CatItemBinding binding) {
+    SearchViewHolder(CatItemBinding binding, OnCatClickedListener<ImageResponse> listener) {
       super(binding.getRoot());
       this.binding = binding;
+      this.listener = listener;
     }
 
     void bind(ImageResponse image) {
@@ -45,6 +53,12 @@ public class CatSearchAdapter extends ListAdapter<ImageResponse, SearchViewHolde
           .load(image.getUrl())
           .centerCrop()
           .into(binding.catItemImage);
+
+      binding.getRoot().setOnClickListener(v -> {
+        if (listener != null) {
+          listener.onCatClicked(image, getAdapterPosition());
+        }
+      });
     }
   }
 
