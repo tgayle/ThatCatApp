@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import app.endershrooms.thatcatapp.R;
 import app.endershrooms.thatcatapp.databinding.FragmentCatFavoritesBinding;
@@ -49,7 +49,9 @@ public class CatFavoritesFragment extends BaseFragment {
     favoritesVm.getFavoriteImages().observe(getViewLifecycleOwner(), favoriteAdapter::submitList);
 
     favoriteAdapter.setOnFavoriteClicked((cat, position) -> {
-      Toast.makeText(getContext(), cat.getImageId(), Toast.LENGTH_SHORT).show();
+      Navigation
+          .findNavController(view)
+          .navigate(CatFavoritesFragmentDirections.actionCatFavoritesToCatInfoFragment(cat.getImageId()));
     });
 
   }

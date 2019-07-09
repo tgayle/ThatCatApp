@@ -16,4 +16,7 @@ public interface FavoriteDao {
 
   @Query("SELECT * FROM favorite")
   LiveData<List<Favorite>> getFavorites();
+
+  @Query("SELECT * FROM favorite WHERE imageId = :imageId LIMIT 1")
+  LiveData<Favorite> getFavoriteByImageId(String imageId);
 }

@@ -50,6 +50,8 @@ public class CatFavoritesAdapter extends ListAdapter<Favorite, FavoriteViewHolde
           .centerCrop()
           .into(binding.catItemImage);
 
+      binding.catItemImage.setTransitionName(favorite.getImageId());
+
       binding.getRoot().setOnClickListener(v -> {
         if (listener != null) {
           listener.onCatClicked(favorite, getAdapterPosition());
@@ -66,7 +68,7 @@ public class CatFavoritesAdapter extends ListAdapter<Favorite, FavoriteViewHolde
 
     @Override
     public boolean areContentsTheSame(@NonNull Favorite oldItem, @NonNull Favorite newItem) {
-      return false; // always redraw
+      return oldItem.getImage().getUrl().equals(newItem.getImage().getUrl());
     }
   };
 }

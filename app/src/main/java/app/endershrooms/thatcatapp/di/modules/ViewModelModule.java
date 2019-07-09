@@ -6,6 +6,7 @@ import app.endershrooms.thatcatapp.di.ViewModelKey;
 import app.endershrooms.thatcatapp.screens.CatViewModelFactory;
 import app.endershrooms.thatcatapp.screens.fragment.breeds.CatBreedViewModel;
 import app.endershrooms.thatcatapp.screens.fragment.favorites.CatFavoritesViewModel;
+import app.endershrooms.thatcatapp.screens.fragment.info.CatInfoViewModel;
 import app.endershrooms.thatcatapp.screens.fragment.search.CatSearchViewModel;
 import app.endershrooms.thatcatapp.screens.fragment.vote.CatVoteViewModel;
 import dagger.Binds;
@@ -35,6 +36,11 @@ public abstract class ViewModelModule {
   @IntoMap
   @ViewModelKey(CatVoteViewModel.class)
   abstract ViewModel bindCatVoteViewModel(CatVoteViewModel voteViewModel);
+
+  @Binds
+  @IntoMap
+  @ViewModelKey(CatInfoViewModel.class)
+  abstract ViewModel bindCatInfoViewModel(CatInfoViewModel infoViewModel);
 
   @Binds
   @Singleton

@@ -1,6 +1,7 @@
 package app.endershrooms.thatcatapp.screens.fragment.search;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -49,7 +50,11 @@ public class CatSearchViewModel extends ViewModel {
           .subscribe(images -> {
             searchResults.setValue(images);
             loading.setValue(false);
-          });
+          },
+            err -> {
+              loading.setValue(false);
+              Log.e("Search", "Error loading search results", err);
+            });
     }
   }
 
@@ -80,7 +85,7 @@ public class CatSearchViewModel extends ViewModel {
       newLimit = newLimitString.isEmpty() ? 0 : Integer.parseInt(newLimitString);
       newLimit = Math.min(newLimit, MAX_IMAGE_LIMIT);
     } catch (ArithmeticException e) {
-      newLimit = initialQuery.getLimit();
+      newLimit = MAX_IMAGE_LIMIT;
     }
 
     if (initialQuery.getLimit() == newLimit) {

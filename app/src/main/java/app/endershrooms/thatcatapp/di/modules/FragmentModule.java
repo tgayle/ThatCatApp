@@ -2,6 +2,7 @@ package app.endershrooms.thatcatapp.di.modules;
 
 import app.endershrooms.thatcatapp.screens.fragment.breeds.CatBreedsFragment;
 import app.endershrooms.thatcatapp.screens.fragment.favorites.CatFavoritesFragment;
+import app.endershrooms.thatcatapp.screens.fragment.info.CatInfoFragment;
 import app.endershrooms.thatcatapp.screens.fragment.search.CatSearchFragment;
 import app.endershrooms.thatcatapp.screens.fragment.vote.CatVoteFragment;
 import dagger.Module;
@@ -21,4 +22,7 @@ public abstract class FragmentModule {
 
   @ContributesAndroidInjector
   abstract CatVoteFragment contributeCatVoteFragment();
+
+  @ContributesAndroidInjector
+  abstract CatInfoFragment contributeCatInfoFragment();
 }
