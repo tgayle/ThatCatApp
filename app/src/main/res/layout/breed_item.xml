@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  >
+  <data>
+    <variable
+      name="breed"
+      type="app.endershrooms.thatcatapp.model.Breed"/>
+  </data>
+  <com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:layout_marginBottom="4dp">
+
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="8dp">
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{breed.name}"
+        android:textSize="24sp"
+        tools:text="Breed Name"/>
+
+      <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_gravity="right"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:textColor="?attr/colorAccent"
+        android:id="@+id/breedItemMoreBtn"
+        android:text="More Info"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="18sp"
+          android:text="Example"/>
+
+        <ImageView
+          android:layout_gravity="center_horizontal"
+          android:layout_width="wrap_content"
+          android:layout_height="150dp"
+          android:id="@+id/breedItemPreview"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="18sp"
+          android:text="Description:"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/breedItemDescription"
+          android:text="@{breed.description}"/>
+      </LinearLayout>
+    </LinearLayout>
+  </com.google.android.material.card.MaterialCardView>
+</layout>

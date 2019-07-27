@@ -4,6 +4,7 @@ import android.app.Application;
 import androidx.room.Room;
 import app.endershrooms.thatcatapp.db.CatDatabase;
 import app.endershrooms.thatcatapp.db.dao.BreedDao;
+import app.endershrooms.thatcatapp.db.dao.CatDao;
 import app.endershrooms.thatcatapp.db.dao.CategoryDao;
 import app.endershrooms.thatcatapp.db.dao.FavoriteDao;
 import app.endershrooms.thatcatapp.db.dao.VoteDao;
@@ -41,5 +42,10 @@ public class DatabaseModule {
   @Provides
   FavoriteDao provideFavoriteDao(CatDatabase db) {
     return db.favoriteDao();
+  }
+
+  @Provides
+  CatDao provideCatDao(CatDatabase db) {
+    return db.catDao();
   }
 }

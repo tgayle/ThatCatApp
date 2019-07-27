@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import app.endershrooms.thatcatapp.model.helper.IntToBoolean;
 import com.squareup.moshi.Json;
 
 @Entity
@@ -67,24 +68,41 @@ public class Breed {
   private Integer strangerFriendly;
   @Json(name = "vocalisation")
   private Integer vocalisation;
+
   @Json(name = "experimental")
-  private Integer experimental;
+  @IntToBoolean
+  private boolean experimental;
+
   @Json(name = "hairless")
-  private Integer hairless;
+  @IntToBoolean
+  private boolean hairless;
+
   @Json(name = "natural")
-  private Integer natural;
+  @IntToBoolean
+  private boolean natural;
+
   @Json(name = "rare")
-  private Integer rare;
+  @IntToBoolean
+  private boolean rare;
+
   @Json(name = "rex")
-  private Integer rex;
+  @IntToBoolean
+  private boolean rex;
+
   @Json(name = "suppressed_tail")
-  private Integer suppressedTail;
+  @IntToBoolean
+  private boolean suppressedTail;
+
   @Json(name = "short_legs")
-  private Integer shortLegs;
+  @IntToBoolean
+  private boolean shortLegs;
+
   @Json(name = "wikipedia_url")
   private String wikipediaUrl;
+
   @Json(name = "hypoallergenic")
-  private Integer hypoallergenic;
+  @IntToBoolean
+  private boolean hypoallergenic;
 
   /**
    * No args constructor for use in serialization
@@ -99,9 +117,9 @@ public class Breed {
       String altNames, Integer adaptability, Integer affectionLevel, Integer childFriendly,
       Integer dogFriendly, Integer energyLevel, Integer grooming, Integer healthIssues,
       Integer intelligence, Integer sheddingLevel, Integer socialNeeds, Integer strangerFriendly,
-      Integer vocalisation, Integer experimental, Integer hairless, Integer natural, Integer rare,
-      Integer rex, Integer suppressedTail, Integer shortLegs, String wikipediaUrl,
-      Integer hypoallergenic) {
+      Integer vocalisation, boolean experimental, boolean hairless, boolean natural, boolean rare,
+      boolean rex, boolean suppressedTail, boolean shortLegs, String wikipediaUrl,
+      boolean hypoallergenic) {
     super();
     this.weight = weight;
     this.id = id;
@@ -357,59 +375,59 @@ public class Breed {
     this.vocalisation = vocalisation;
   }
 
-  public Integer getExperimental() {
+  public boolean getExperimental() {
     return experimental;
   }
 
-  public void setExperimental(Integer experimental) {
+  public void setExperimental(boolean experimental) {
     this.experimental = experimental;
   }
 
-  public Integer getHairless() {
+  public boolean getHairless() {
     return hairless;
   }
 
-  public void setHairless(Integer hairless) {
+  public void setHairless(boolean hairless) {
     this.hairless = hairless;
   }
 
-  public Integer getNatural() {
+  public boolean getNatural() {
     return natural;
   }
 
-  public void setNatural(Integer natural) {
+  public void setNatural(boolean natural) {
     this.natural = natural;
   }
 
-  public Integer getRare() {
+  public boolean getRare() {
     return rare;
   }
 
-  public void setRare(Integer rare) {
+  public void setRare(boolean rare) {
     this.rare = rare;
   }
 
-  public Integer getRex() {
+  public boolean getRex() {
     return rex;
   }
 
-  public void setRex(Integer rex) {
+  public void setRex(boolean rex) {
     this.rex = rex;
   }
 
-  public Integer getSuppressedTail() {
+  public boolean getSuppressedTail() {
     return suppressedTail;
   }
 
-  public void setSuppressedTail(Integer suppressedTail) {
+  public void setSuppressedTail(boolean suppressedTail) {
     this.suppressedTail = suppressedTail;
   }
 
-  public Integer getShortLegs() {
+  public boolean getShortLegs() {
     return shortLegs;
   }
 
-  public void setShortLegs(Integer shortLegs) {
+  public void setShortLegs(boolean shortLegs) {
     this.shortLegs = shortLegs;
   }
 
@@ -421,11 +439,11 @@ public class Breed {
     this.wikipediaUrl = wikipediaUrl;
   }
 
-  public Integer getHypoallergenic() {
+  public boolean getHypoallergenic() {
     return hypoallergenic;
   }
 
-  public void setHypoallergenic(Integer hypoallergenic) {
+  public void setHypoallergenic(boolean hypoallergenic) {
     this.hypoallergenic = hypoallergenic;
   }
 

@@ -6,7 +6,7 @@ import app.endershrooms.thatcatapp.model.Weight;
 public class Converters {
 
   @TypeConverter
-  public static Weight fromString(String value) {
+  public static Weight weightFromString(String value) {
     String[] fields = value.split("\\|");
     if (fields.length != 2) {
       return new Weight("n/a", "n/a");
@@ -18,4 +18,5 @@ public class Converters {
   public static String toDatabaseString(Weight weight) {
     return weight.getImperial() + "|" + weight.getMetric();
   }
+
 }

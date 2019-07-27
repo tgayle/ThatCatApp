@@ -3,6 +3,7 @@ package app.endershrooms.thatcatapp.di.modules;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import app.endershrooms.thatcatapp.model.helper.IntToBooleanAdapter;
 import app.endershrooms.thatcatapp.net.CatService;
 import app.endershrooms.thatcatapp.util.Constants;
 import app.endershrooms.thatcatapp.util.UserInfo;
@@ -25,7 +26,8 @@ public class AppModule {
   @Singleton
   @Provides
   Moshi provideMoshi() {
-    return new Moshi.Builder().build();
+    return new Moshi.Builder()
+        .add(new IntToBooleanAdapter()).build();
   }
 
   @Singleton

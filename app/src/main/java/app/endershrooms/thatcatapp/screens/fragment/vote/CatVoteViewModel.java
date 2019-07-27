@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
+import app.endershrooms.thatcatapp.db.dao.CatDao;
 import app.endershrooms.thatcatapp.model.ImageResponse;
 import app.endershrooms.thatcatapp.model.builders.FavoriteRequest;
 import app.endershrooms.thatcatapp.model.builders.ImageSearchQuery;
@@ -32,11 +33,13 @@ public class CatVoteViewModel extends BaseViewModel {
   private final ImageSearchQuery randomImageQuery = new ImageSearchQuery()
       .setLimit(1)
       .setOrder(SearchQueryOrder.RANDOM);
+  private final CatDao catDao;
 
   @Inject
-  CatVoteViewModel(CatService catService, UserInfo userInfo) {
+  CatVoteViewModel(CatService catService, UserInfo userInfo, CatDao catDao) {
     this.catService = catService;
     this.userInfo = userInfo;
+    this.catDao = catDao;
   }
 
   public void fragmentReady() {
@@ -50,7 +53,6 @@ public class CatVoteViewModel extends BaseViewModel {
           if (images.size() == 0) {
             throw new ArrayIndexOutOfBoundsException();
           }
-
           return Single.just(images.get(0));
         });
   }

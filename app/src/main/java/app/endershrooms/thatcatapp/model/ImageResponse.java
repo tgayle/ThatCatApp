@@ -7,15 +7,18 @@ public class ImageResponse {
 
   @Json(name = "breeds")
   private List<Breed> breeds;
+
   @Json(name = "height")
   private Integer height;
+
   @Json(name = "id")
   private String id;
+
   @Json(name = "url")
   private String url;
+
   @Json(name = "width")
   private Integer width;
-
   public List<Breed> getBreeds() {
     return breeds;
   }
@@ -55,5 +58,4 @@ public class ImageResponse {
   public void setWidth(Integer width) {
     this.width = width;
   }
-
 }

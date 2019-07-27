@@ -4,6 +4,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import app.endershrooms.thatcatapp.db.dao.BreedDao;
+import app.endershrooms.thatcatapp.db.dao.CatDao;
 import app.endershrooms.thatcatapp.db.dao.CategoryDao;
 import app.endershrooms.thatcatapp.db.dao.FavoriteDao;
 import app.endershrooms.thatcatapp.db.dao.VoteDao;
@@ -16,7 +17,7 @@ import app.endershrooms.thatcatapp.model.Vote;
     version = 1,
     entities = {
         Category.class, Breed.class,
-        Vote.class, Favorite.class
+        Vote.class, Favorite.class,
     },
     exportSchema = false
 )
@@ -30,4 +31,6 @@ public abstract class CatDatabase extends RoomDatabase {
   public abstract BreedDao breedDao();
 
   public abstract FavoriteDao favoriteDao();
+
+  public abstract CatDao catDao();
 }
