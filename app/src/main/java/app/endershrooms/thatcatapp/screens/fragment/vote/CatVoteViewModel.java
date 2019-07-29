@@ -53,6 +53,7 @@ public class CatVoteViewModel extends BaseViewModel {
           if (images.size() == 0) {
             throw new ArrayIndexOutOfBoundsException();
           }
+          catDao.insert(images.get(0));
           return Single.just(images.get(0));
         });
   }

@@ -1,23 +1,29 @@
 package app.endershrooms.thatcatapp.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import app.endershrooms.thatcatapp.model.helper.BreedsToBreedId;
 import com.squareup.moshi.Json;
 import java.util.List;
 
+@Entity
 public class Cat {
+
+  @NonNull
+  @PrimaryKey
+  @Json(name = "id")
+  private String id;
 
   @Json(name = "breeds")
   @BreedsToBreedId
   private List<String> breedIds;
 
-  @Json(name = "height")
-  private Integer height;
-
-  @Json(name = "id")
-  private String id;
-
   @Json(name = "url")
   private String url;
+
+  @Json(name = "height")
+  private Integer height;
 
   @Json(name = "width")
   private Integer width;

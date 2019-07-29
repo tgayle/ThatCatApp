@@ -1,7 +1,10 @@
 package app.endershrooms.thatcatapp.db;
 
+import android.text.TextUtils;
 import androidx.room.TypeConverter;
 import app.endershrooms.thatcatapp.model.Weight;
+import java.util.Arrays;
+import java.util.List;
 
 public class Converters {
 
@@ -15,8 +18,19 @@ public class Converters {
   }
 
   @TypeConverter
-  public static String toDatabaseString(Weight weight) {
+  public static String weightToDatabaseString(Weight weight) {
     return weight.getImperial() + "|" + weight.getMetric();
+  }
+
+  @TypeConverter
+  public static String breedIdsToDatabaseString(List<String> breedIds) {
+    return TextUtils.join("|", breedIds);
+  }
+
+  @TypeConverter
+  public static List<String> breedIdsFromString(String databaseIdString) {
+    String[] ids = databaseIdString.trim().split("\\|");
+    return Arrays.asList(ids);
   }
 
 }
