@@ -18,6 +18,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class CatSearchViewModel extends ViewModel {
+  public static final int DEFAULT_IMAGE_LIMIT = 1;
   private static final int MAX_IMAGE_LIMIT = 100;
 
   private CatService catService;
@@ -25,7 +26,7 @@ public class CatSearchViewModel extends ViewModel {
 
   private MutableLiveData<List<ImageResponse>> searchResults = new LiveDataWithInitial<>(new ArrayList<>());
   private MutableLiveData<Boolean> loading = new LiveDataWithInitial<>(false);
-  private MutableLiveData<ImageSearchQuery> searchQuery = new LiveDataWithInitial<>(new ImageSearchQuery());
+  private MutableLiveData<ImageSearchQuery> searchQuery = new LiveDataWithInitial<>(new ImageSearchQuery().setLimit(DEFAULT_IMAGE_LIMIT));
   private LiveData<List<Category>> imageCategories;
 
   @Inject
@@ -79,20 +80,30 @@ public class CatSearchViewModel extends ViewModel {
 
   public void limitTextChanged(String newLimitString) {
     ImageSearchQuery initialQuery = searchQuery.getValue();
-    int newLimit;
-
-    try {
-      newLimit = newLimitString.isEmpty() ? 0 : Integer.parseInt(newLimitString);
-      newLimit = Math.min(newLimit, MAX_IMAGE_LIMIT);
-    } catch (ArithmeticException e) {
-      newLimit = MAX_IMAGE_LIMIT;
-    }
-
-    if (initialQuery.getLimit() == newLimit) {
+    if (newLimitString.equals(MAX_IMAGE_LIMIT + "") || newLimitString.equals(initialQuery.getLimit() + "")) {
       return;
     }
 
+    int newLimit = getImageLimitOrMax(newLimitString);
     initialQuery.setLimit(newLimit);
     searchQuery.setValue(initialQuery);
+  }
+
+  /**
+   * Returns the user entered image limit or the MAX_IMAGE_LIMIT, whichever is lowest.
+   *
+   * @param input A string that is a number, usually from user input.
+   * @return The maximum number of images to load.
+   */
+  private int getImageLimitOrMax(String input) {
+    int newLimit;
+
+    try {
+      newLimit = input.isEmpty() ? DEFAULT_IMAGE_LIMIT : Integer.parseInt(input);
+      newLimit = Math.min(newLimit, MAX_IMAGE_LIMIT);
+    } catch (NumberFormatException e) {
+      newLimit = MAX_IMAGE_LIMIT;
+    }
+    return newLimit;
   }
 }

@@ -19,16 +19,16 @@ import app.endershrooms.thatcatapp.util.Result.Type;
 import app.endershrooms.thatcatapp.util.UserInfo;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 
 public class CatVoteViewModel extends BaseViewModel {
 
   private final CatService catService;
   private final UserInfo userInfo;
+
+  private final MutableLiveData<CatVoteState> state = new LiveDataWithInitial<>(CatVoteState.LOADING);
   private final MutableLiveData<Event<String>> snackbarMessage = new MutableLiveData<>();
-  private final MutableLiveData<Boolean> loading = new LiveDataWithInitial<>(false);
-  private final LiveData<Boolean> buttonsEnabled = Transformations.map(loading, currentlyLoading -> !currentlyLoading);
+  private final LiveData<Boolean> buttonsEnabled = Transformations.map(state, currentState -> !currentState.equals(CatVoteState.LOADING));
   private final MutableLiveData<Result<ImageResponse, String>> currentCat = new LiveDataWithInitial<>(new Result<>());
   private final ImageSearchQuery randomImageQuery = new ImageSearchQuery()
       .setLimit(1)
@@ -59,7 +59,7 @@ public class CatVoteViewModel extends BaseViewModel {
 
   private void imageLoadingFailed(Throwable err) {
     currentCat.setValue(currentCat.getValue().setError("There was an issue loading a new cat!\n" + err.getMessage()));
-    loading.setValue(false);
+    state.setValue(CatVoteState.VOTING);
   }
 
   public void catVoteClicked(boolean likedIt) {
@@ -69,19 +69,17 @@ public class CatVoteViewModel extends BaseViewModel {
     int vote = VoteRequest.fromBoolean(likedIt);
     VoteRequest newVote = new VoteRequest(currentImage.getId(), userInfo.getUuid(), vote);
 
-    loading.setValue(true);
-    disposables.add(catService.createVote(newVote)
-        .observeOn(AndroidSchedulers.mainThread())
-        .flatMap(
-            voteResult -> {
-              snackbarMessage.setValue(new Event<>(voteResult.getMessage()));
-              return getNewCat();
-            })
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(imageResponse -> {
-          currentCat.setValue(currentCat.getValue().setResult(imageResponse));
-          loading.setValue(false);
-        }, this::imageLoadingFailed));
+    state.setValue(CatVoteState.LOADING);
+
+    disposables.add(Single.zip(catService.createVote(newVote), getNewCat(), (voteResult, newCat) -> {
+      snackbarMessage.postValue(new Event<>(voteResult.getMessage()));
+      currentCat.postValue(currentCat.getValue().setResult(newCat));
+      state.postValue(CatVoteState.VOTING);
+      return true;
+    })
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnError(this::imageLoadingFailed)
+      .subscribe());
   }
 
   public void catFavoriteClicked() {
@@ -92,31 +90,31 @@ public class CatVoteViewModel extends BaseViewModel {
     VoteRequest newVote = new VoteRequest(currentImage.getId(), userInfo.getUuid(), vote);
     FavoriteRequest newFav = new FavoriteRequest(currentImage.getId(), userInfo.getUuid());
 
-    loading.setValue(true);
-    Disposable disposable = Single.zip(catService.createVote(newVote), catService.createFavorite(newFav), (voteResult, favResult) -> {
+    state.setValue(CatVoteState.LOADING);
+
+    disposables.add(Single.zip(catService.createVote(newVote), catService.createFavorite(newFav), (voteResult, favResult) -> {
       boolean successfulAction = favResult.getMessage().equals("SUCCESS");
       String snackText = successfulAction ? "Liked! Find this cat in your favorites. 🎉" : favResult.getMessage();
+
       snackbarMessage.postValue(new Event<>(snackText));
       return true;
     })
-        .flatMap(unused -> getNewCat())
+        .flatMap(ignored -> getNewCat())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(newCat -> {
           currentCat.setValue(currentCat.getValue().setResult(newCat));
-          loading.setValue(false);
-        }, this::imageLoadingFailed);
-
-    disposables.add(disposable);
+          state.setValue(CatVoteState.VOTING);
+        }, this::imageLoadingFailed));
   }
 
   public void nextCatClicked() {
     if (currentCat.getValue().getType() == Type.FAILURE) return;
-    loading.setValue(true);
+    state.setValue(CatVoteState.LOADING);
     disposables.add(getNewCat()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(newCat -> {
           currentCat.setValue(currentCat.getValue().setResult(newCat));
-          loading.setValue(false);
+          state.setValue(CatVoteState.VOTING);
     }));
   }
 
@@ -125,8 +123,8 @@ public class CatVoteViewModel extends BaseViewModel {
     return snackbarMessage;
   }
 
-  public LiveData<Boolean> getLoading() {
-    return loading;
+  public LiveData<CatVoteState> getState() {
+    return state;
   }
 
   public LiveData<Result<ImageResponse, String>> getCurrentCat() {
