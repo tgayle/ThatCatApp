@@ -1,12 +1,14 @@
 package app.endershrooms.thatcatapp.model;
 
+import app.endershrooms.thatcatapp.model.helper.BreedsToBreedId;
 import com.squareup.moshi.Json;
 import java.util.List;
 
 public class ImageResponse {
 
   @Json(name = "breeds")
-  private List<Breed> breeds;
+  @BreedsToBreedId
+  private List<String> breedIds;
 
   @Json(name = "height")
   private Integer height;
@@ -19,12 +21,13 @@ public class ImageResponse {
 
   @Json(name = "width")
   private Integer width;
-  public List<Breed> getBreeds() {
-    return breeds;
+
+  public List<String> getBreedIds() {
+    return breedIds;
   }
 
-  public void setBreeds(List<Breed> breeds) {
-    this.breeds = breeds;
+  public void setBreedIds(List<String> breedIds) {
+    this.breedIds = breedIds;
   }
 
   public Integer getHeight() {

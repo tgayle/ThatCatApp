@@ -3,6 +3,7 @@ package app.endershrooms.thatcatapp.di.modules;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import app.endershrooms.thatcatapp.model.helper.BreedsToBreedIdsAdapter;
 import app.endershrooms.thatcatapp.model.helper.IntToBooleanAdapter;
 import app.endershrooms.thatcatapp.net.CatService;
 import app.endershrooms.thatcatapp.util.Constants;
@@ -27,7 +28,9 @@ public class AppModule {
   @Provides
   Moshi provideMoshi() {
     return new Moshi.Builder()
-        .add(new IntToBooleanAdapter()).build();
+        .add(new IntToBooleanAdapter())
+        .add(new BreedsToBreedIdsAdapter())
+        .build();
   }
 
   @Singleton
