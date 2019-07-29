@@ -4,7 +4,7 @@ import app.endershrooms.thatcatapp.model.helper.BreedsToBreedId;
 import com.squareup.moshi.Json;
 import java.util.List;
 
-public class ImageResponse {
+public class Cat {
 
   @Json(name = "breeds")
   @BreedsToBreedId

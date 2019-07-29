@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import app.endershrooms.thatcatapp.db.dao.CategoryDao;
+import app.endershrooms.thatcatapp.model.Cat;
 import app.endershrooms.thatcatapp.model.Category;
-import app.endershrooms.thatcatapp.model.ImageResponse;
 import app.endershrooms.thatcatapp.model.builders.ImageSearchQuery;
 import app.endershrooms.thatcatapp.model.builders.SearchQueryOrder;
 import app.endershrooms.thatcatapp.net.CatService;
@@ -24,7 +24,7 @@ public class CatSearchViewModel extends ViewModel {
   private CatService catService;
   private CategoryDao categoryDao;
 
-  private MutableLiveData<List<ImageResponse>> searchResults = new LiveDataWithInitial<>(new ArrayList<>());
+  private MutableLiveData<List<Cat>> searchResults = new LiveDataWithInitial<>(new ArrayList<>());
   private MutableLiveData<Boolean> loading = new LiveDataWithInitial<>(false);
   private MutableLiveData<ImageSearchQuery> searchQuery = new LiveDataWithInitial<>(new ImageSearchQuery().setLimit(DEFAULT_IMAGE_LIMIT));
   private LiveData<List<Category>> imageCategories;
@@ -59,7 +59,7 @@ public class CatSearchViewModel extends ViewModel {
     }
   }
 
-  public LiveData<List<ImageResponse>> getSearchResults() {
+  public LiveData<List<Cat>> getSearchResults() {
     return searchResults;
   }
 

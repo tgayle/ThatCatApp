@@ -1,9 +1,9 @@
 package app.endershrooms.thatcatapp.net;
 
 import app.endershrooms.thatcatapp.model.Breed;
+import app.endershrooms.thatcatapp.model.Cat;
 import app.endershrooms.thatcatapp.model.Category;
 import app.endershrooms.thatcatapp.model.Favorite;
-import app.endershrooms.thatcatapp.model.ImageResponse;
 import app.endershrooms.thatcatapp.model.RequestResult;
 import app.endershrooms.thatcatapp.model.Vote;
 import app.endershrooms.thatcatapp.model.builders.FavoriteRequest;
@@ -59,7 +59,7 @@ public interface CatService {
   Single<RequestResult> createFavorite(@Body FavoriteRequest favorite);
 
   @GET("images/search")
-  Single<List<ImageResponse>> getImages(@QueryMap Map<String, String> queries);
+  Single<List<Cat>> getImages(@QueryMap Map<String, String> queries);
 
   @GET("images/{image_id}")
   Single<RequestResult> getImage(@Path("image_id") String id);

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import app.endershrooms.thatcatapp.db.dao.CatDao;
-import app.endershrooms.thatcatapp.model.ImageResponse;
+import app.endershrooms.thatcatapp.model.Cat;
 import app.endershrooms.thatcatapp.model.builders.FavoriteRequest;
 import app.endershrooms.thatcatapp.model.builders.ImageSearchQuery;
 import app.endershrooms.thatcatapp.model.builders.SearchQueryOrder;
@@ -29,7 +29,7 @@ public class CatVoteViewModel extends BaseViewModel {
   private final MutableLiveData<CatVoteState> state = new LiveDataWithInitial<>(CatVoteState.LOADING);
   private final MutableLiveData<Event<String>> snackbarMessage = new MutableLiveData<>();
   private final LiveData<Boolean> buttonsEnabled = Transformations.map(state, currentState -> !currentState.equals(CatVoteState.LOADING));
-  private final MutableLiveData<Result<ImageResponse, String>> currentCat = new LiveDataWithInitial<>(new Result<>());
+  private final MutableLiveData<Result<Cat, String>> currentCat = new LiveDataWithInitial<>(new Result<>());
   private final ImageSearchQuery randomImageQuery = new ImageSearchQuery()
       .setLimit(1)
       .setOrder(SearchQueryOrder.RANDOM);
@@ -47,7 +47,7 @@ public class CatVoteViewModel extends BaseViewModel {
   }
 
   @SuppressLint("CheckResult")
-  private Single<ImageResponse> getNewCat() {
+  private Single<Cat> getNewCat() {
     return catService.getImages(randomImageQuery.toMap())
         .flatMap(images -> {
           if (images.size() == 0) {
@@ -65,7 +65,7 @@ public class CatVoteViewModel extends BaseViewModel {
   public void catVoteClicked(boolean likedIt) {
     if (currentCat.getValue().getType() == Type.FAILURE) return;
 
-    ImageResponse currentImage = currentCat.getValue().getResult();
+    Cat currentImage = currentCat.getValue().getResult();
     int vote = VoteRequest.fromBoolean(likedIt);
     VoteRequest newVote = new VoteRequest(currentImage.getId(), userInfo.getUuid(), vote);
 
@@ -85,7 +85,7 @@ public class CatVoteViewModel extends BaseViewModel {
   public void catFavoriteClicked() {
     if (currentCat.getValue().getType() == Type.FAILURE) return;
 
-    ImageResponse currentImage = currentCat.getValue().getResult();
+    Cat currentImage = currentCat.getValue().getResult();
     int vote = VoteRequest.fromBoolean(true);
     VoteRequest newVote = new VoteRequest(currentImage.getId(), userInfo.getUuid(), vote);
     FavoriteRequest newFav = new FavoriteRequest(currentImage.getId(), userInfo.getUuid());
@@ -127,7 +127,7 @@ public class CatVoteViewModel extends BaseViewModel {
     return state;
   }
 
-  public LiveData<Result<ImageResponse, String>> getCurrentCat() {
+  public LiveData<Result<Cat, String>> getCurrentCat() {
     return currentCat;
   }
 

@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import app.endershrooms.thatcatapp.databinding.CatItemBinding;
-import app.endershrooms.thatcatapp.model.ImageResponse;
+import app.endershrooms.thatcatapp.model.Cat;
 import app.endershrooms.thatcatapp.screens.fragment.search.CatSearchAdapter.SearchViewHolder;
 import app.endershrooms.thatcatapp.view.OnCatClickedListener;
 import com.bumptech.glide.Glide;
 
-public class CatSearchAdapter extends ListAdapter<ImageResponse, SearchViewHolder> {
-  private OnCatClickedListener<ImageResponse> onCatClickedListener;
+public class CatSearchAdapter extends ListAdapter<Cat, SearchViewHolder> {
+  private OnCatClickedListener<Cat> onCatClickedListener;
 
   public CatSearchAdapter() {
     super(IMAGE_DIFF_UTIL);
@@ -33,22 +33,22 @@ public class CatSearchAdapter extends ListAdapter<ImageResponse, SearchViewHolde
     holder.bind(getItem(position));
   }
 
-  public void setOnCatClickedListener(OnCatClickedListener<ImageResponse> onCatClickedListener) {
+  public void setOnCatClickedListener(OnCatClickedListener<Cat> onCatClickedListener) {
     this.onCatClickedListener = onCatClickedListener;
   }
 
   class SearchViewHolder extends ViewHolder {
 
     private final CatItemBinding binding;
-    private OnCatClickedListener<ImageResponse> listener;
+    private OnCatClickedListener<Cat> listener;
 
-    SearchViewHolder(CatItemBinding binding, OnCatClickedListener<ImageResponse> listener) {
+    SearchViewHolder(CatItemBinding binding, OnCatClickedListener<Cat> listener) {
       super(binding.getRoot());
       this.binding = binding;
       this.listener = listener;
     }
 
-    void bind(ImageResponse image) {
+    void bind(Cat image) {
       Glide.with(binding.getRoot())
           .load(image.getUrl())
           .centerCrop()
@@ -62,15 +62,15 @@ public class CatSearchAdapter extends ListAdapter<ImageResponse, SearchViewHolde
     }
   }
 
-  static final DiffUtil.ItemCallback<ImageResponse> IMAGE_DIFF_UTIL = new ItemCallback<ImageResponse>() {
+  static final DiffUtil.ItemCallback<Cat> IMAGE_DIFF_UTIL = new ItemCallback<Cat>() {
     @Override
-    public boolean areItemsTheSame(@NonNull ImageResponse oldItem, @NonNull ImageResponse newItem) {
+    public boolean areItemsTheSame(@NonNull Cat oldItem, @NonNull Cat newItem) {
       return oldItem.getId().equals(newItem.getId());
     }
 
     @Override
-    public boolean areContentsTheSame(@NonNull ImageResponse oldItem,
-        @NonNull ImageResponse newItem) {
+    public boolean areContentsTheSame(@NonNull Cat oldItem,
+        @NonNull Cat newItem) {
       return false;
     }
   };

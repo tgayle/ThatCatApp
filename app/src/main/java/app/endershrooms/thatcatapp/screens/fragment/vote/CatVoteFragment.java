@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import app.endershrooms.thatcatapp.R;
 import app.endershrooms.thatcatapp.databinding.FragmentCatVoteBinding;
-import app.endershrooms.thatcatapp.model.ImageResponse;
+import app.endershrooms.thatcatapp.model.Cat;
 import app.endershrooms.thatcatapp.screens.fragment.BaseFragment;
 import app.endershrooms.thatcatapp.util.Result.Type;
 import com.bumptech.glide.Glide;
@@ -78,7 +78,7 @@ public class CatVoteFragment extends BaseFragment {
         return;
       }
 
-      ImageResponse catInfo = catResult.getResult();
+      Cat catInfo = catResult.getResult();
 
       Glide.with(this)
           .load(catInfo.getUrl())
