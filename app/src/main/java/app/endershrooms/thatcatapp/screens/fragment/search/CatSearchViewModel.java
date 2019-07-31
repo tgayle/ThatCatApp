@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import app.endershrooms.thatcatapp.db.dao.CatDao;
 import app.endershrooms.thatcatapp.db.dao.CategoryDao;
 import app.endershrooms.thatcatapp.model.Cat;
 import app.endershrooms.thatcatapp.model.Category;
@@ -12,6 +13,7 @@ import app.endershrooms.thatcatapp.model.builders.ImageSearchQuery;
 import app.endershrooms.thatcatapp.model.builders.SearchQueryOrder;
 import app.endershrooms.thatcatapp.net.CatService;
 import app.endershrooms.thatcatapp.util.LiveDataWithInitial;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import javax.inject.Inject;
 public class CatSearchViewModel extends ViewModel {
   public static final int DEFAULT_IMAGE_LIMIT = 1;
   private static final int MAX_IMAGE_LIMIT = 100;
+  private final CatDao catDao;
 
   private CatService catService;
   private CategoryDao categoryDao;
@@ -30,9 +33,10 @@ public class CatSearchViewModel extends ViewModel {
   private LiveData<List<Category>> imageCategories;
 
   @Inject
-  public CatSearchViewModel(CatService catService, CategoryDao categoryDao) {
+  public CatSearchViewModel(CatService catService, CategoryDao categoryDao, CatDao catDao) {
     this.catService = catService;
     this.categoryDao = categoryDao;
+    this.catDao = catDao;
 
     imageCategories = categoryDao.getCategories();
   }
@@ -47,6 +51,10 @@ public class CatSearchViewModel extends ViewModel {
 
       catService
           .getImages(searchQuery.getValue().toMap())
+          .flatMap(cats -> {
+            catDao.insert(cats.toArray(new Cat[0]));
+            return Single.just(cats);
+          })
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(images -> {
             searchResults.setValue(images);
@@ -99,7 +107,7 @@ public class CatSearchViewModel extends ViewModel {
     int newLimit;
 
     try {
-      newLimit = input.isEmpty() ? DEFAULT_IMAGE_LIMIT : Integer.parseInt(input);
+      newLimit = input.isEmpty() ? 0 : Integer.parseInt(input);
       newLimit = Math.min(newLimit, MAX_IMAGE_LIMIT);
     } catch (NumberFormatException e) {
       newLimit = MAX_IMAGE_LIMIT;

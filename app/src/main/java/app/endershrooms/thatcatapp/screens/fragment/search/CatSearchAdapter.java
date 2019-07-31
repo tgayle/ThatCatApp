@@ -65,7 +65,7 @@ public class CatSearchAdapter extends ListAdapter<Cat, SearchViewHolder> {
   static final DiffUtil.ItemCallback<Cat> IMAGE_DIFF_UTIL = new ItemCallback<Cat>() {
     @Override
     public boolean areItemsTheSame(@NonNull Cat oldItem, @NonNull Cat newItem) {
-      return oldItem.getId().equals(newItem.getId());
+      return oldItem.getCatId().equals(newItem.getCatId());
     }
 
     @Override

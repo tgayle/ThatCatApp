@@ -2,16 +2,17 @@ package app.endershrooms.thatcatapp.screens.fragment.breeds;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import app.endershrooms.thatcatapp.databinding.FragmentCatBreedsBinding;
+import app.endershrooms.thatcatapp.model.BreedWithExampleCat;
 import app.endershrooms.thatcatapp.screens.fragment.BaseFragment;
 
 
@@ -48,10 +49,16 @@ public class CatBreedsFragment extends BaseFragment {
     catVm.fragmentReady();
     catVm.getBreedsStream().observe(getViewLifecycleOwner(), breedAdapter::submitList);
     catVm.getLoading().observe(getViewLifecycleOwner(), isLoading -> binding.breedsSwipeRefresh.setRefreshing(isLoading));
+    catVm.getBreedWithPreviewCat().observe(getViewLifecycleOwner(), breedWithPreviewEvent -> {
+      BreedWithExampleCat breedWithPreview = breedWithPreviewEvent.getContentIfNotHandled();
+      Log.d("Breeds", breedWithPreview + "");
+      if (breedWithPreview == null) return;
+
+      BreedInfoBottomSheetDialog dialog = new BreedInfoBottomSheetDialog(breedWithPreview);
+      dialog.show(getFragmentManager(), "breedInfoDialog");
+    });
 
     binding.breedsSwipeRefresh.setOnRefreshListener(() -> catVm.refresh());
-    breedAdapter.setClickListener((cat, position) -> {
-      Toast.makeText(getContext(), cat.getName() +  " " + cat.getId(), Toast.LENGTH_SHORT).show();
-    });
+    breedAdapter.setClickListener((breed, position) -> catVm.breedSelected(breed));
   }
 }

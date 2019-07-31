@@ -54,7 +54,7 @@ public class CatBreedAdapter extends ListAdapter<Breed, BreedViewHolder> {
   private static final DiffUtil.ItemCallback<Breed> BREED_DIFF = new ItemCallback<Breed>() {
     @Override
     public boolean areItemsTheSame(@NonNull Breed oldItem, @NonNull Breed newItem) {
-      return oldItem.getId().equals(newItem.getId());
+      return oldItem.getBreedId().equals(newItem.getBreedId());
     }
 
     @Override

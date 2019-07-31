@@ -16,7 +16,7 @@ public class Breed {
   @Json(name = "id")
   @PrimaryKey
   @NonNull
-  private String id;
+  private String breedId;
 
   @Json(name = "name")
   private String name;
@@ -122,7 +122,7 @@ public class Breed {
       boolean hypoallergenic) {
     super();
     this.weight = weight;
-    this.id = id;
+    this.breedId = id;
     this.name = name;
     this.cfaUrl = cfaUrl;
     this.vetstreetUrl = vetstreetUrl;
@@ -167,12 +167,12 @@ public class Breed {
     this.weight = weight;
   }
 
-  public String getId() {
-    return id;
+  public String getBreedId() {
+    return breedId;
   }
 
-  public void setId(String id) {
-    this.id = id;
+  public void setBreedId(String breedId) {
+    this.breedId = breedId;
   }
 
   public String getName() {

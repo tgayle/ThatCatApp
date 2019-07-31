@@ -68,7 +68,7 @@ public class CatVoteViewModel extends BaseViewModel {
 
     Cat currentImage = currentCat.getValue().getResult();
     int vote = VoteRequest.fromBoolean(likedIt);
-    VoteRequest newVote = new VoteRequest(currentImage.getId(), userInfo.getUuid(), vote);
+    VoteRequest newVote = new VoteRequest(currentImage.getCatId(), userInfo.getUuid(), vote);
 
     state.setValue(CatVoteState.LOADING);
 
@@ -88,8 +88,8 @@ public class CatVoteViewModel extends BaseViewModel {
 
     Cat currentImage = currentCat.getValue().getResult();
     int vote = VoteRequest.fromBoolean(true);
-    VoteRequest newVote = new VoteRequest(currentImage.getId(), userInfo.getUuid(), vote);
-    FavoriteRequest newFav = new FavoriteRequest(currentImage.getId(), userInfo.getUuid());
+    VoteRequest newVote = new VoteRequest(currentImage.getCatId(), userInfo.getUuid(), vote);
+    FavoriteRequest newFav = new FavoriteRequest(currentImage.getCatId(), userInfo.getUuid());
 
     state.setValue(CatVoteState.LOADING);
 

@@ -13,7 +13,7 @@ public class BreedsToBreedIdsAdapter {
   List<String> fromJson(List<Breed> breeds) {
     List<String> breedIds = new ArrayList<>();
     for (Breed breed: breeds) {
-      breedIds.add(breed.getId());
+      breedIds.add(breed.getBreedId());
     }
     return breedIds;
   }

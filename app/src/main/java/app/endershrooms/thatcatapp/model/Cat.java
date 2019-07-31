@@ -13,7 +13,7 @@ public class Cat {
   @NonNull
   @PrimaryKey
   @Json(name = "id")
-  private String id;
+  private String catId;
 
   @Json(name = "breeds")
   @BreedsToBreedId
@@ -44,12 +44,12 @@ public class Cat {
     this.height = height;
   }
 
-  public String getId() {
-    return id;
+  public String getCatId() {
+    return catId;
   }
 
-  public void setId(String id) {
-    this.id = id;
+  public void setCatId(String catId) {
+    this.catId = catId;
   }
 
   public String getUrl() {
