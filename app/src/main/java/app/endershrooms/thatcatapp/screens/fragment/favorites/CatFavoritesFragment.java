@@ -40,7 +40,7 @@ public class CatFavoritesFragment extends BaseFragment {
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    favoritesVm = ViewModelProviders.of(this, vmFactory).get(CatFavoritesViewModel.class);
+    favoritesVm = ViewModelProviders.of(getActivity(), vmFactory).get(CatFavoritesViewModel.class);
     CatFavoritesAdapter favoriteAdapter = new CatFavoritesAdapter();
     binding.favoritesRv.setAdapter(favoriteAdapter);
     binding.favoritesRv.setLayoutManager(new GridLayoutManager(getContext(), 2));

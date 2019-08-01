@@ -26,6 +26,7 @@ public class CatBreedViewModel extends BaseViewModel {
         return Transformations.map(breedDao.getBreedWithPreviewCat(breed.getBreedId()), Event::new);
       });
   private final MutableLiveData<Boolean> loading = new LiveDataWithInitial<>(false);
+  private boolean fragmentFirstLoaded = false;
 
   @Inject
   public CatBreedViewModel(BreedDao breedDao, CatService catService) {
@@ -35,7 +36,10 @@ public class CatBreedViewModel extends BaseViewModel {
   }
 
   public void fragmentReady() {
-    loadBreeds();
+    if (!fragmentFirstLoaded) {
+      loadBreeds();
+      fragmentFirstLoaded = true;
+    }
   }
 
   public void refresh() {

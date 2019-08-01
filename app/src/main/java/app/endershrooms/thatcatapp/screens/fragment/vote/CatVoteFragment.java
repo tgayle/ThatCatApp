@@ -44,7 +44,7 @@ public class CatVoteFragment extends BaseFragment {
         container,
         false);
 
-    voteVm = ViewModelProviders.of(this, vmFactory).get(CatVoteViewModel.class);
+    voteVm = ViewModelProviders.of(getActivity(), vmFactory).get(CatVoteViewModel.class);
     voteVm.fragmentReady();
     return binding.getRoot();
   }

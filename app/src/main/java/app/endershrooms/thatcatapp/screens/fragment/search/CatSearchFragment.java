@@ -60,7 +60,7 @@ public class CatSearchFragment extends BaseFragment {
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    searchVm = ViewModelProviders.of(this, vmFactory).get(CatSearchViewModel.class);
+    searchVm = ViewModelProviders.of(getActivity(), vmFactory).get(CatSearchViewModel.class);
     CatSearchAdapter adapter = new CatSearchAdapter();
     GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
     binding.searchRv.setAdapter(adapter);

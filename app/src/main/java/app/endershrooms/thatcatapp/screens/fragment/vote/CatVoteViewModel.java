@@ -34,6 +34,7 @@ public class CatVoteViewModel extends BaseViewModel {
       .setLimit(1)
       .setOrder(SearchQueryOrder.RANDOM);
   private final CatDao catDao;
+  private boolean fragmentFirstLoaded = false;
 
   @Inject
   CatVoteViewModel(CatService catService, UserInfo userInfo, CatDao catDao) {
@@ -43,7 +44,10 @@ public class CatVoteViewModel extends BaseViewModel {
   }
 
   public void fragmentReady() {
-    nextCatClicked();
+    if (!fragmentFirstLoaded) {
+      nextCatClicked();
+      fragmentFirstLoaded = true;
+    }
   }
 
   @SuppressLint("CheckResult")

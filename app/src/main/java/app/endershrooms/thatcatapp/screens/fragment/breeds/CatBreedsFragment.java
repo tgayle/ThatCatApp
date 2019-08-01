@@ -45,7 +45,7 @@ public class CatBreedsFragment extends BaseFragment {
     binding.breedsRv.setAdapter(breedAdapter);
     binding.breedsRv.setLayoutManager(new GridLayoutManager(getContext(),2));
 
-    catVm = ViewModelProviders.of(this, vmFactory).get(CatBreedViewModel.class);
+    catVm = ViewModelProviders.of(getActivity(), vmFactory).get(CatBreedViewModel.class);
     catVm.fragmentReady();
     catVm.getBreedsStream().observe(getViewLifecycleOwner(), breedAdapter::submitList);
     catVm.getLoading().observe(getViewLifecycleOwner(), isLoading -> binding.breedsSwipeRefresh.setRefreshing(isLoading));
