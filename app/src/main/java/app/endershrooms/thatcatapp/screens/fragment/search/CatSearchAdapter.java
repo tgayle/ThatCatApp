@@ -12,6 +12,7 @@ import app.endershrooms.thatcatapp.model.Cat;
 import app.endershrooms.thatcatapp.screens.fragment.search.CatSearchAdapter.SearchViewHolder;
 import app.endershrooms.thatcatapp.view.OnCatClickedListener;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 public class CatSearchAdapter extends ListAdapter<Cat, SearchViewHolder> {
   private OnCatClickedListener<Cat> onCatClickedListener;
@@ -52,6 +53,7 @@ public class CatSearchAdapter extends ListAdapter<Cat, SearchViewHolder> {
       Glide.with(binding.getRoot())
           .load(image.getUrl())
           .centerCrop()
+          .transition(DrawableTransitionOptions.withCrossFade())
           .into(binding.catItemImage);
 
       binding.getRoot().setOnClickListener(v -> {

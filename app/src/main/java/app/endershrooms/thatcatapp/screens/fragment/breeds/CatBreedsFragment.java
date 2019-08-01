@@ -2,7 +2,6 @@ package app.endershrooms.thatcatapp.screens.fragment.breeds;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import app.endershrooms.thatcatapp.databinding.FragmentCatBreedsBinding;
 import app.endershrooms.thatcatapp.model.BreedWithExampleCat;
 import app.endershrooms.thatcatapp.screens.fragment.BaseFragment;
@@ -43,7 +42,7 @@ public class CatBreedsFragment extends BaseFragment {
     breedAdapter = new CatBreedAdapter();
 
     binding.breedsRv.setAdapter(breedAdapter);
-    binding.breedsRv.setLayoutManager(new GridLayoutManager(getContext(),2));
+    binding.breedsRv.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
 
     catVm = ViewModelProviders.of(getActivity(), vmFactory).get(CatBreedViewModel.class);
     catVm.fragmentReady();
@@ -51,7 +50,6 @@ public class CatBreedsFragment extends BaseFragment {
     catVm.getLoading().observe(getViewLifecycleOwner(), isLoading -> binding.breedsSwipeRefresh.setRefreshing(isLoading));
     catVm.getBreedWithPreviewCat().observe(getViewLifecycleOwner(), breedWithPreviewEvent -> {
       BreedWithExampleCat breedWithPreview = breedWithPreviewEvent.getContentIfNotHandled();
-      Log.d("Breeds", breedWithPreview + "");
       if (breedWithPreview == null) return;
 
       BreedInfoBottomSheetDialog dialog = new BreedInfoBottomSheetDialog(breedWithPreview);

@@ -59,7 +59,7 @@ public class CatBreedAdapter extends ListAdapter<Breed, BreedViewHolder> {
 
     @Override
     public boolean areContentsTheSame(@NonNull Breed oldItem, @NonNull Breed newItem) {
-      return oldItem.getDescription().equals(newItem.getDescription());
+      return (oldItem.getDescription() == null || newItem.getDescription() == null) || oldItem.getDescription().equals(newItem.getDescription());
     }
   };
 }

@@ -20,11 +20,13 @@ public class CatBreedViewModel extends BaseViewModel {
   private BreedDao breedDao;
   private final LiveData<List<Breed>> breedsStream;
   private final CatService catService;
+
   private final MutableLiveData<Breed> currentBreed = new MutableLiveData<>();
   private final LiveData<Event<BreedWithExampleCat>> breedWithPreviewCat =
       Transformations.switchMap(currentBreed, breed -> {
         return Transformations.map(breedDao.getBreedWithPreviewCat(breed.getBreedId()), Event::new);
       });
+
   private final MutableLiveData<Boolean> loading = new LiveDataWithInitial<>(false);
   private boolean fragmentFirstLoaded = false;
 

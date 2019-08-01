@@ -12,6 +12,7 @@ import app.endershrooms.thatcatapp.model.Favorite;
 import app.endershrooms.thatcatapp.screens.fragment.favorites.CatFavoritesAdapter.FavoriteViewHolder;
 import app.endershrooms.thatcatapp.view.OnCatClickedListener;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 public class CatFavoritesAdapter extends ListAdapter<Favorite, FavoriteViewHolder> {
   private OnCatClickedListener<Favorite> onFavoriteClicked;
@@ -48,6 +49,7 @@ public class CatFavoritesAdapter extends ListAdapter<Favorite, FavoriteViewHolde
       Glide.with(binding.getRoot())
           .load(favorite.getImage().getUrl())
           .centerCrop()
+          .transition(DrawableTransitionOptions.withCrossFade())
           .into(binding.catItemImage);
 
       binding.catItemImage.setTransitionName(favorite.getImageId());
