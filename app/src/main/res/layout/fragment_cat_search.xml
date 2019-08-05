@@ -7,60 +7,28 @@
     android:layout_height="match_parent"
     tools:context=".screens.fragment.search.CatSearchFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-      android:layout_width="match_parent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:id="@+id/searchAppBarLayout">
-
-      <com.google.android.material.appbar.CollapsingToolbarLayout
+      android:id="@+id/searchSwipeRefresh">
+      <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:title="@string/title_browse"
-        app:contentScrim="?attr/colorPrimary"
-        app:expandedTitleGravity="top"
-        app:layout_scrollFlags="scroll|enterAlways|snap">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/searchRv">
 
-        <androidx.appcompat.widget.Toolbar
-          android:layout_width="match_parent"
-          android:layout_height="?attr/actionBarSize"
-          android:id="@+id/searchToolbar"
-          app:layout_collapseMode="pin"/>
-      </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      android:id="@+id/searchRv">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <LinearLayout
-      android:id="@+id/searchBottomSheet"
-      android:layout_width="match_parent"
-      android:layout_height="340dp"
-      android:orientation="vertical"
-      app:behavior_peekHeight="40dp"
-      android:background="?android:attr/windowBackground"
-      app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-      <include
-        layout="@layout/search_bottom_sheet"
-        android:id="@+id/searchBottomSheetLayout"/>
-
-    </LinearLayout>
+      </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/searchFab"
       style="@style/Widget.MaterialComponents.FloatingActionButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      app:layout_anchor="@id/searchBottomSheet"
-      app:layout_anchorGravity="top|right"
+      android:layout_gravity="bottom|right"
       android:layout_margin="16dp"
       android:tint="#fff"
-      app:srcCompat="@drawable/ic_plus_24"/>
+      app:srcCompat="@drawable/ic_filter"/>
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

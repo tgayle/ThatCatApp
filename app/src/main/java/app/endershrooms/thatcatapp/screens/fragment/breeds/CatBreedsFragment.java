@@ -34,6 +34,7 @@ public class CatBreedsFragment extends BaseFragment {
     // Inflate the layout for this fragment
 
     binding = FragmentCatBreedsBinding.inflate(inflater, container, false);
+    binding.breedsSwipeRefresh.setEnabled(false);
     return binding.getRoot();
   }
 
@@ -46,8 +47,10 @@ public class CatBreedsFragment extends BaseFragment {
 
     catVm = ViewModelProviders.of(getActivity(), vmFactory).get(CatBreedViewModel.class);
     catVm.fragmentReady();
+
     catVm.getBreedsStream().observe(getViewLifecycleOwner(), breedAdapter::submitList);
     catVm.getLoading().observe(getViewLifecycleOwner(), isLoading -> binding.breedsSwipeRefresh.setRefreshing(isLoading));
+
     catVm.getBreedWithPreviewCat().observe(getViewLifecycleOwner(), breedWithPreviewEvent -> {
       BreedWithExampleCat breedWithPreview = breedWithPreviewEvent.getContentIfNotHandled();
       if (breedWithPreview == null) return;
@@ -56,7 +59,6 @@ public class CatBreedsFragment extends BaseFragment {
       dialog.show(getFragmentManager(), "breedInfoDialog");
     });
 
-    binding.breedsSwipeRefresh.setOnRefreshListener(() -> catVm.refresh());
     breedAdapter.setClickListener((breed, position) -> catVm.breedSelected(breed));
   }
 }

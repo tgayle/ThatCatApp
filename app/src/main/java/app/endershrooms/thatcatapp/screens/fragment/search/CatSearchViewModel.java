@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 public class CatSearchViewModel extends ViewModel {
   public static final int DEFAULT_IMAGE_LIMIT = 1;
-  private static final int MAX_IMAGE_LIMIT = 100;
+  public static final int MAX_IMAGE_LIMIT = 100;
   private final CatDao catDao;
 
   private CatService catService;
@@ -29,7 +29,9 @@ public class CatSearchViewModel extends ViewModel {
 
   private MutableLiveData<List<Cat>> searchResults = new LiveDataWithInitial<>(new ArrayList<>());
   private MutableLiveData<Boolean> loading = new LiveDataWithInitial<>(false);
-  private MutableLiveData<ImageSearchQuery> searchQuery = new LiveDataWithInitial<>(new ImageSearchQuery().setLimit(DEFAULT_IMAGE_LIMIT));
+  private MutableLiveData<ImageSearchQuery> searchQuery = new LiveDataWithInitial<>(new ImageSearchQuery()
+      .setLimit(DEFAULT_IMAGE_LIMIT)
+      .setOrder(SearchQueryOrder.RANDOM));
   private LiveData<List<Category>> imageCategories;
 
   @Inject
@@ -71,6 +73,10 @@ public class CatSearchViewModel extends ViewModel {
     return searchResults;
   }
 
+  public LiveData<Boolean> getLoading() {
+    return loading;
+  }
+
   public LiveData<ImageSearchQuery> getSearchQuery() {
     return searchQuery;
   }
@@ -88,30 +94,16 @@ public class CatSearchViewModel extends ViewModel {
 
   public void limitTextChanged(String newLimitString) {
     ImageSearchQuery initialQuery = searchQuery.getValue();
-    if (newLimitString.equals(MAX_IMAGE_LIMIT + "") || newLimitString.equals(initialQuery.getLimit() + "")) {
-      return;
+    if (!newLimitString.equals(initialQuery.getLimit() + "")) {
+      int newLimit = 0;
+
+      try {
+        newLimit = Math.min(Integer.parseInt(newLimitString), MAX_IMAGE_LIMIT);
+      } catch (NumberFormatException ignored) {
+      }
+
+      initialQuery.setLimit(newLimit);
+      searchQuery.setValue(initialQuery);
     }
-
-    int newLimit = getImageLimitOrMax(newLimitString);
-    initialQuery.setLimit(newLimit);
-    searchQuery.setValue(initialQuery);
-  }
-
-  /**
-   * Returns the user entered image limit or the MAX_IMAGE_LIMIT, whichever is lowest.
-   *
-   * @param input A string that is a number, usually from user input.
-   * @return The maximum number of images to load.
-   */
-  private int getImageLimitOrMax(String input) {
-    int newLimit;
-
-    try {
-      newLimit = input.isEmpty() ? 0 : Integer.parseInt(input);
-      newLimit = Math.min(newLimit, MAX_IMAGE_LIMIT);
-    } catch (NumberFormatException e) {
-      newLimit = MAX_IMAGE_LIMIT;
-    }
-    return newLimit;
   }
 }

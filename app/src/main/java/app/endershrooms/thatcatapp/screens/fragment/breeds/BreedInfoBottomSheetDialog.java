@@ -33,11 +33,18 @@ public class BreedInfoBottomSheetDialog extends BottomSheetDialogFragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     binding.setBreed(breedAndExampleCat.getBreed());
     if (breedAndExampleCat.getCat() != null) {
+      setImageVisiblity(View.VISIBLE);
       ImageView catImg = binding.breedItemPreview;
       Glide.with(catImg)
           .load(breedAndExampleCat.getCat().getUrl())
           .into(catImg);
+    } else {
+      setImageVisiblity(View.GONE);
     }
+  }
 
+  void setImageVisiblity(int visiblity) {
+    binding.breedItemPreview.setVisibility(visiblity);
+    binding.breedItemPreviewHeader.setVisibility(visiblity);
   }
 }
