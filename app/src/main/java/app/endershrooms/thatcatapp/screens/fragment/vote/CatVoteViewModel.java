@@ -37,7 +37,7 @@ public class CatVoteViewModel extends BaseViewModel {
   private boolean fragmentFirstLoaded = false;
 
   @Inject
-  CatVoteViewModel(CatService catService, UserInfo userInfo, CatDao catDao) {
+  public CatVoteViewModel(CatService catService, UserInfo userInfo, CatDao catDao) {
     this.catService = catService;
     this.userInfo = userInfo;
     this.catDao = catDao;

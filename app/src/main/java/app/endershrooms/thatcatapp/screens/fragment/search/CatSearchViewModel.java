@@ -6,9 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import app.endershrooms.thatcatapp.db.dao.CatDao;
-import app.endershrooms.thatcatapp.db.dao.CategoryDao;
 import app.endershrooms.thatcatapp.model.Cat;
-import app.endershrooms.thatcatapp.model.Category;
 import app.endershrooms.thatcatapp.model.builders.ImageSearchQuery;
 import app.endershrooms.thatcatapp.model.builders.SearchQueryOrder;
 import app.endershrooms.thatcatapp.net.CatService;
@@ -25,29 +23,24 @@ public class CatSearchViewModel extends ViewModel {
   private final CatDao catDao;
 
   private CatService catService;
-  private CategoryDao categoryDao;
 
   private MutableLiveData<List<Cat>> searchResults = new LiveDataWithInitial<>(new ArrayList<>());
   private MutableLiveData<Boolean> loading = new LiveDataWithInitial<>(false);
   private MutableLiveData<ImageSearchQuery> searchQuery = new LiveDataWithInitial<>(new ImageSearchQuery()
       .setLimit(DEFAULT_IMAGE_LIMIT)
       .setOrder(SearchQueryOrder.RANDOM));
-  private LiveData<List<Category>> imageCategories;
 
   @Inject
-  public CatSearchViewModel(CatService catService, CategoryDao categoryDao, CatDao catDao) {
+  public CatSearchViewModel(CatService catService, CatDao catDao) {
     this.catService = catService;
-    this.categoryDao = categoryDao;
     this.catDao = catDao;
-
-    imageCategories = categoryDao.getCategories();
   }
 
   void fragmentReady() {
   }
 
   @SuppressLint("CheckResult")
-  void loadSearchResults() {
+  public void loadSearchResults() {
     if (!loading.getValue()) {
       loading.setValue(true);
 
