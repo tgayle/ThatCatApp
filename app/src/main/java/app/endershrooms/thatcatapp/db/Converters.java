@@ -24,8 +24,11 @@ public class Converters {
 
   @TypeConverter
   public static String breedIdsToDatabaseString(List<String> breedIds) {
-    return TextUtils.join("|", breedIds);
-  }
+    if (breedIds != null) {
+      return TextUtils.join("|", breedIds);
+    }
+    return "";
+}
 
   @TypeConverter
   public static List<String> breedIdsFromString(String databaseIdString) {

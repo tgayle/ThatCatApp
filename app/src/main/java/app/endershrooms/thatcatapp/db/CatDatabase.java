@@ -18,12 +18,11 @@ import app.endershrooms.thatcatapp.model.Favorite;
 import app.endershrooms.thatcatapp.model.Vote;
 
 @Database(
-    version = 3,
+    version = 4,
     entities = {
         Category.class, Breed.class,
         Vote.class, Favorite.class, Cat.class
-    },
-    exportSchema = false
+    }
 )
 @TypeConverters({Converters.class})
 public abstract class CatDatabase extends RoomDatabase {

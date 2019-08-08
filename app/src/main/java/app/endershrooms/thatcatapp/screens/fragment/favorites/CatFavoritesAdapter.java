@@ -65,7 +65,7 @@ public class CatFavoritesAdapter extends ListAdapter<Favorite, FavoriteViewHolde
   static final DiffUtil.ItemCallback<Favorite> FAVORITE_DIFF_CALLBACK = new ItemCallback<Favorite>() {
     @Override
     public boolean areItemsTheSame(@NonNull Favorite oldItem, @NonNull Favorite newItem) {
-      return oldItem.getId().equals(newItem.getId());
+      return oldItem.getId() == newItem.getId();
     }
 
     @Override

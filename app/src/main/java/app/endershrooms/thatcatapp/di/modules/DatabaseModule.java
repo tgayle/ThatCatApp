@@ -20,6 +20,7 @@ public class DatabaseModule {
   CatDatabase provideDatabase(Application app) {
     return Room
         .databaseBuilder(app, CatDatabase.class, "cat.db")
+        .fallbackToDestructiveMigration()
         .addMigrations(CatDatabase.MIGRATION_1_2, CatDatabase.MIGRATION_2_3)
         .build();
   }
