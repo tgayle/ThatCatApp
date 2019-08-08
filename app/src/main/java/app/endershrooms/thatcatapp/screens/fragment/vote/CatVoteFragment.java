@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import app.endershrooms.thatcatapp.R;
 import app.endershrooms.thatcatapp.databinding.FragmentCatVoteBinding;
 import app.endershrooms.thatcatapp.model.Cat;
 import app.endershrooms.thatcatapp.screens.fragment.BaseFragment;
@@ -39,10 +37,7 @@ public class CatVoteFragment extends BaseFragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    binding = DataBindingUtil.inflate(inflater,
-        R.layout.fragment_cat_vote,
-        container,
-        false);
+    binding = FragmentCatVoteBinding.inflate(inflater, container, false);
 
     voteVm = ViewModelProviders.of(getActivity(), vmFactory).get(CatVoteViewModel.class);
     voteVm.fragmentReady();
