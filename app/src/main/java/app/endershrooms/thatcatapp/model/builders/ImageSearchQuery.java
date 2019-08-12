@@ -35,7 +35,7 @@ public class ImageSearchQuery {
       categoryIdStr.append(categoryIdStr).append(",");
     }
 
-    map.put("size", size.size);
+    map.put("size", size.getSize());
     map.put("order", order.toString());
     map.put("limit", limit + "");
     map.put("page", page + "");
