@@ -68,37 +68,38 @@ data class Breed(
     var vocalisation: Int?,
 
     @Json(name = "experimental")
-    @IntToBoolean
+    @field:IntToBoolean
     var experimental: Boolean = false,
 
-    @Json(name = "hairless")
-    @IntToBoolean
+    @field:Json(name = "hairless")
+    @field:IntToBoolean
     var hairless: Boolean = false,
 
-    @Json(name = "natural")
-    @IntToBoolean
+    @field:Json(name = "natural")
+    @field:IntToBoolean
     var natural: Boolean = false,
 
-    @Json(name = "rare")
-    @IntToBoolean
+    @field:Json(name = "rare")
+    @field:IntToBoolean
     var rare: Boolean = false,
 
-    @Json(name = "rex")
-    @IntToBoolean
+    @field:Json(name = "rex")
+    @field:IntToBoolean
     var rex: Boolean = false,
 
-    @Json(name = "suppressed_tail")
-    @IntToBoolean
+    @field:Json(name = "suppressed_tail")
+    @field:IntToBoolean
     var suppressedTail: Boolean = false,
 
-    @Json(name = "short_legs")
-    @IntToBoolean
+    @field:Json(name = "short_legs")
+    @field:IntToBoolean
     var shortLegs: Boolean = false,
 
     @Json(name = "wikipedia_url")
     var wikipediaUrl: String?,
 
-    @Json(name = "hypoallergenic")
-    @IntToBoolean
+    //TODO: Why does every variable with more than one annotation require @field?
+    @field:Json(name = "hypoallergenic")
+    @field:IntToBoolean
     var hypoallergenic: Boolean = false
 )
